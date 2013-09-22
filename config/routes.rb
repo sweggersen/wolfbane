@@ -7,7 +7,11 @@ Wolfbane::Application.routes.draw do
 
   resources :farmers
 
+  resources :sessions, only: [:new, :create, :destroy]
+
   match '/signup', to: 'farmers#new', via: 'get'
+  match '/login', to: 'sessions#new', via: 'get'
+  match '/logout', to: 'sessions#destroy', via: 'delete'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
