@@ -1,0 +1,20 @@
+  <header class="navbar navbar-fixed-top navbar-inverse">
+    <div class="navbar-inner">
+      <div class="container">
+        <%= link_to "Wolfbane", '#', id: "logo" %>
+        <nav>
+          <ul class="nav pull-right">
+            <% if signed_in? %>
+              <li><%= link_to "Map", '#' %></li>
+              <li><%= link_to "Sheep", '#' %></li>
+              <li><%= link_to "Farmers", '#' %></li>
+              <li><%= link_to "Profile", '#' %></li>
+              <li><%= link_to "Log out", '#' %></li>
+            <% else %>
+              <li><%= link_to "Log in", '#' %></li>
+            <% end %>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
