@@ -1,5 +1,6 @@
 class Farmer < ActiveRecord::Base
   has_many :sheep
+  before_create :create_remember_token
   before_save {
     self.email = email.downcase
     self.backup = backup.downcase
@@ -21,4 +22,17 @@ class Farmer < ActiveRecord::Base
       errors.add(:backup, 'no such email registrated')
     end
   end
+
+  def Farmer.new_remember_token
+      SecureRandom.urlsafe_base64
+  end
+
+  def Farmer.encrypt(token)
+    Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  private
+    def create_remember_token
+      self.remember_token = Farmer.encrypt(Farmer.new_remember_token)
+    end
 end

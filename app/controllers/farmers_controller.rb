@@ -28,6 +28,7 @@ class FarmersController < ApplicationController
 
     respond_to do |format|
       if @farmer.save
+        sign_in @farmer
         format.html { redirect_to @farmer, notice: 'Welcome to Wolfbane. May your sheep live long and prosper.' }
         format.json { render action: 'show', status: :created, location: @farmer }
       else

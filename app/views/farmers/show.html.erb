@@ -17,8 +17,9 @@
 
 <p>
   <strong>Backup:</strong>
-  <% if @farmer.backup; link_to @farmer.backup, Farmer.find_by_email(@farmer.backup) end %>
+  <% if @farmer.backup %>
+    <% link_to @farmer.backup, Farmer.find_by_email(@farmer.backup) %>
+  <% end %>
 </p>
 
-<%= link_to 'Edit', edit_farmer_path(@farmer) %> |
-<%= link_to 'Back', farmers_path %>
+<%= link_to 'Edit', edit_farmer_path(@farmer) %>
