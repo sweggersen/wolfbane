@@ -3,10 +3,10 @@
 <table>
   <thead>
     <tr>
-      <th>Email</th>
       <th>Name</th>
-      <th>Password</th>
+      <th>Email</th>
       <th>Phone</th>
+      <th>Backup</th>
       <th></th>
       <th></th>
       <th></th>
@@ -16,10 +16,10 @@
   <tbody>
     <% @farmers.each do |farmer| %>
       <tr>
+        <td><%= link_to farmer.name, farmer %></td>
         <td><%= farmer.email %></td>
-        <td><%= farmer.name %></td>
-        <td><%= farmer.password %></td>
         <td><%= farmer.phone %></td>
+        <td><%= if farmer.backup; link_to farmer.backup, Farmer.find_by_email(farmer.backup) end %></td>
         <td><%= link_to 'Show', farmer %></td>
         <td><%= link_to 'Edit', edit_farmer_path(farmer) %></td>
         <td><%= link_to 'Destroy', farmer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
