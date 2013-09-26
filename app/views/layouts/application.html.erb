@@ -70,29 +70,6 @@
           <div>
             <h1>Kart</h1>
             <div class="w-embed w-script kart" id="map">
-              <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
-              <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
-              <script>
-                //Her setter man latitude og longitude
-                var map = L.map('map').setView([63.6268, 11.5668], 13);
-                 //Denne er for opencyclemap layout (Gir høydekvoter)
-                L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
-                  maxZoom: 18,
-                  attribution: '&copy; OpenCycleMap, ' + 'Map data '
-                }).addTo(map);
-                L.marker([63.6268, 11.5668]).addTo(map)
-                  .bindPopup("<b>Sau 1</b><br /> er her").openPopup();
-                L.marker([63.6220, 11.5811]).addTo(map)
-                  .bindPopup("<b>Sau 2</b><br /> er her").openPopup();
-                var popup = L.popup();
-                function onMapClick(e) {
-                  popup
-                    .setLatLng(e.latlng)
-                    .setContent("You clicked the map at " + e.latlng.toString())
-                    .openOn(map);
-                }
-                map.on('click', onMapClick);
-              </script>
             </div>
           </div>
         </div>
