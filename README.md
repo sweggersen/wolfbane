@@ -2,4 +2,4 @@ wolfbane
 ========
 
 Informatikk prosjekt
-Saue-emulator
+Saue-simulator
