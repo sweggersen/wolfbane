@@ -10,17 +10,6 @@
 	 <![endif]-->
   <%= csrf_meta_tags %>
   <%= render 'layouts/shim' %>
-      <meta charset="utf-8">
-    <title>SheepTrackingSystem</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/normalize.css">
-    <link rel="stylesheet" type="text/css" href="css/webflow.css">
-    <link rel="stylesheet" type="text/css" href="css/sheeptrackingsystem.webflow.css">
-    <link rel="icon" type="image/x-icon" href="https://y7v4p6k4.ssl.hwcdn.net/placeholder/favicon.ico">
-    <link rel="apple-touch-icon" href="https://y7v4p6k4.ssl.hwcdn.net/51e088cb308929c46c000051/thumbnail-starter.png">
-    <script type="text/javascript" src="js/webflow.js" defer></script>
-
 </head>
 <body>
   <%= render 'layouts/header' %>
@@ -31,76 +20,6 @@
     <%= yield %>
     <%= render 'layouts/footer' %>
     <%= debug(params) if Rails.env.development? %>
-  </div>
-  
-    <div class="nav-section">
-    <div class="w-container">
-      <div class="w-row">
-        <div class="w-col w-col-4">
-          <div class="company">Sheep Tracking System</div>
-        </div>
-        <div class="w-col w-col-8 navigation-column"><a class="nav-link" href="#">Truls Kaare Bondegutt </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="section">
-    <div>
-      <div class="w-row">
-        <div class="w-col w-col-4">
-          <div class="w-row">
-            <div class="w-col w-col-6">
-              <h1>Sauer</h1>
-            </div>
-            <div class="w-col w-col-6"><a class="button" href="#">Legg til</a>
-            </div>
-          </div>
-          <input class="w-input sheeps" type="text" placeholder="Søk etter sau" name="search_sau" required="required" data-name="search_sau"></input>
-          <div class="w-container sheeps"></div>
-        </div>
-        <div class="w-col w-col-8">
-          <div class="w-row">
-            <div class="w-col w-col-6">
-              <h1>Sau</h1>
-            </div>
-            <div class="w-col w-col-6 w-clearfix"><a class="button" href="#">Rediger</a>
-            </div>
-          </div>
-          <div></div>
-          <div>
-            <h1>Kart</h1>
-            <div class="w-embed w-script kart" id="map">
-              <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
-              <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
-              <script>
-                //Her setter man latitude og longitude
-                var map = L.map('map').setView([63.6268, 11.5668], 13);
-                 //Denne er for opencyclemap layout (Gir høydekvoter)
-                L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
-                  maxZoom: 18,
-                  attribution: '&copy; OpenCycleMap, ' + 'Map data '
-                }).addTo(map);
-                L.marker([63.6268, 11.5668]).addTo(map)
-                  .bindPopup("<b>Sau 1</b><br /> er her").openPopup();
-                L.marker([63.6220, 11.5811]).addTo(map)
-                  .bindPopup("<b>Sau 2</b><br /> er her").openPopup();
-                var popup = L.popup();
-                function onMapClick(e) {
-                  popup
-                    .setLatLng(e.latlng)
-                    .setContent("You clicked the map at " + e.latlng.toString())
-                    .openOn(map);
-                }
-                map.on('click', onMapClick);
-              </script>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="section footer">
-    <div class="footertext">© Wolfbane 2013</div>
   </div>
 </body>
 </html>
