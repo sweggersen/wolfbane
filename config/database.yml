@@ -20,7 +20,8 @@ development:
   database: wolfbane_development
   host: localhost
   pool: 5
-  username: wolfbane
+#  username: wolfbane
+  username: trond
   password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -49,7 +50,8 @@ test:
   encoding: unicode
   database: wolfbane_test
   pool: 5
-  username: wolfbane
+#  username: wolfbane
+  username: trond
   password:
 
 production:
@@ -57,5 +59,6 @@ production:
   encoding: unicode
   database: wolfbane_production
   pool: 5
-  username: wolfbane
+#  username: wolfbane
+  username: trond
   password:
