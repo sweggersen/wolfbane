@@ -1,26 +1,78 @@
 <h1>Listing sheep</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Serial</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+**
+<div class="section" style="border:5px solid blue">
+    <div class="inner">
+      <div class="w-row">
+        <div class="w-col w-col-4" style="padding:0px 30px;">
+          <div class="w-row" style="padding-bottom:10px;">
+            <div class="w-col w-col-6" style="border:1px solid blue">
+              <h1 style="margin: 0;">Sauer</h1>
+            </div>
+            <div class="w-col w-col-6"><a class="btn btn-default" style="float:right;" href="#"><span class="glyphicon-plus" style="padding-right:10px"></span><%= link_to 'Ny sau', new_sheep_path %></a>
+            </div>
+          </div>
+          <input class="w-input sheeps" type="text" placeholder="Søk etter sau" name="search_sau" required="required" data-name="search_sau"></input>
+          <div class="w-container sheeps"
+            style="height: 400px; overflow-y: scroll; overflow-x: hidden;">
+            <div class="list-group">
 
-  <tbody>
-    <% @sheep.each do |sheep| %>
-      <tr>
-        <td><%= sheep.serial %></td>
-        <td><%= link_to 'Show', sheep %></td>
-        <td><%= link_to 'Edit', edit_sheep_path(sheep) %></td>
-        <td><%= link_to 'Destroy', sheep, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+              <% @sheep.each do |sheep| %>
+                <a href="#" class="list-group-item">
+                  <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px"><%= sheep.serial %></div>
+                  <div style="display:inline-block;width: 15%;vertical-align:top;"><%= link_to 'Show', sheep %></div>
+                  <div style="display:inline-block;width: 15%;vertical-align:top;"><%= link_to 'Edit', edit_sheep_path(sheep) %></div>
+                  <div style="display:inline-block;width: 15%;vertical-align:top;"><%= link_to 'Destroy', sheep, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+                </a>
+              <% end %> <!-- list-group-item active -->
+              
+            </div>
+          </div>
+        </div>
+        <div class="w-col w-col-8" style="padding:0px 30px;">
+          <div class="w-row" style="  padding-bottom:10px;">
+            <div class="w-col w-col-6">
+              <h1 style="margin: 0;">Sau</h1>
+            </div>
+            <div class="w-col w-col-6 w-clearfix"><a class="btn btn-default" style="float:right; margin-right:20px" href="#"><span class="glyphicon-pencil" style="padding-right:10px"></span>Rediger</a>
+            </div>
+          </div>
+          <div></div>
+          <div>
+            <h1>Kart</h1>
+            <div class="w-embed w-script kart" id="map">
+              <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+              <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+              <script>
+                //Her setter man latitude og longitude
+                var map = L.map('map').setView([63.6268, 11.5668], 13);
+                 //Denne er for opencyclemap layout (Gir høydekvoter)
+                L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
+                  maxZoom: 18,
+                  attribution: '&copy; OpenCycleMap, ' + 'Map data '
+                }).addTo(map);
+                L.marker([63.6268, 11.5668]).addTo(map)
+                  .bindPopup("<b>Sau 1</b><br /> er her").openPopup();
+                L.marker([63.6220, 11.5811]).addTo(map)
+                  .bindPopup("<b>Sau 2</b><br /> er her").openPopup();
+                var popup = L.popup();
+                function onMapClick(e) {
+                  popup
+                    .setLatLng(e.latlng)
+                    .setContent("You clicked the map at " + e.latlng.toString())
+                    .openOn(map);
+                }
+                map.on('click', onMapClick);
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+**
+
 
 <br>
 
