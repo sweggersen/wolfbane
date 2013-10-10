@@ -4,16 +4,14 @@
     <p class="navbar-brand" style="margin-bottom: 0px">Sheep Tracking System</p>
   </div>
   <ul class="nav navbar-nav navbar-right">
-    <li><button type="button" class="btn btn-default navbar-btn" style="margin-right:10px">Sign in</button></li>
-  </ul>
 	<% if signed_in? %>
-		<li><%= link_to "Sheeo", '#' %></li>
-		<p class="navbar-text pull-right" style="margin-right:20px;">Logget inn som <a href="#" class="navbar-link">Truls Kaare Bondetrell</a></p>
+		<li><button type="button" class="btn btn-default navbar-btn" style="margin-right:10px">Sign in</button></li>
+		<p class="navbar-text pull-right" style="margin-right:20px;">Logget inn som <a href="#" class="navbar-link">Bonden Bo</a></p>
 	<% else %>
 		<li><% link_to "Log in", '#' %></li>
 		<p class="navbar-text pull-right" style="margin-right:20px;">Logg inn <a href="#" class="navbar-link"></a></p>
 	<% end %>
-		
+  </ul>
 </nav>
 
 </header>
