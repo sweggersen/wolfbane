@@ -6,26 +6,30 @@
     <title>SheepTrackingSystem</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/webflow.css">
     <link rel="stylesheet" type="text/css" href="css/sheeptrackingsystem.webflow.css">
-    <link rel="icon" type="image/x-icon" href="https://y7v4p6k4.ssl.hwcdn.net/placeholder/favicon.ico">
-    <link rel="apple-touch-icon" href="https://y7v4p6k4.ssl.hwcdn.net/51e088cb308929c46c000051/thumbnail-starter.png">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-    <script type="text/javascript" src="js/webflow.js" defer></script>
-    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/select2.css">
+
+    <script src="js/jquery-2.0.3.min.js"></script>
+
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-  </head><body>
+    <script type="text/javascript" src="js/select2.min.js"></script>
+    <script type="text/javascript" src="js/select2_locale_no.js"></script>
+  </head>
+  <body>
 
   <nav class="navbar navbar-primary navbar-static-top" style="border-bottom: solid 1px #ccc; margin-bottom: 5px;" role="navigation">
-  <div class="navbar-header">
-    <p class="navbar-brand" style="margin-bottom: 0px">Sheep Tracking System</p>
-  </div>
-  <ul class="nav navbar-nav navbar-right">
-    <li><button type="button" class="btn btn-default navbar-btn" style="margin-right:10px">Sign in</button></li>
-  </ul>
-  <p class="navbar-text pull-right" style="margin-right:20px;">Logget inn som <a href="#" class="navbar-link">Truls Kaare Bondetrell</a></p>
-</nav>
+    <div class="navbar-header">
+      <p class="navbar-brand" style="margin-bottom: 0px">Sheep Tracking System</p>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><button type="button" class="btn btn-default navbar-btn" style="margin-right:10px">Sign in</button></li>
+    </ul>
+    <p class="navbar-text pull-right" style="margin-right:20px;">Logget inn som <a href="#" class="navbar-link">Truls Kaare Bondetrell</a></p>
+  </nav>
 
   <div class="section">
     <div class="inner">
@@ -35,37 +39,87 @@
             <div class="w-col w-col-6">
               <h1 style="margin: 0;">Sauer</h1>
             </div>
-            <div class="w-col w-col-6"><a class="btn btn-default" style="float:right;" href="#"><span class="glyphicon-plus" style="padding-right:10px"></span><%= link_to 'Ny sau', new_sheep_path %></a>
+            <div class="w-col w-col-6">
+            <a class="btn btn-default" style="float:right;" href="#"><span class="glyphicon-pencil" style="padding-right:10px"></span>Rediger</a>
+            <a class="btn btn-default" style="float:right; margin-right:6px" href="#"><span class="glyphicon-plus" style="padding-right:10px"></span>Legg til</a>
             </div>
           </div>
-          <input class="w-input sheeps" type="text" placeholder="Søk etter sau" name="search_sau" required="required" data-name="search_sau"></input>
+          <select id="e2" style="width:100%; margin-bottom: 10px">
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
           <div class="w-container sheeps"
             style="height: 400px; overflow-y: scroll; overflow-x: hidden;">
             <div class="list-group">
-
-              <% @sheep.each do |sheep| %>
-                <a href="#" class="list-group-item">
-                  <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px"><%= sheep.serial %></div>
-                  <div style="display:inline-block;width: 15%;vertical-align:top;"><%= link_to 'Show', sheep %></div>
-                  <div style="display:inline-block;width: 15%;vertical-align:top;"><%= link_to 'Edit', edit_sheep_path(sheep) %></div>
-                  <div style="display:inline-block;width: 15%;vertical-align:top;"><%= link_to 'Destroy', sheep, method: :delete, data: { confirm: 'Are you sure?' } %></div>
-                </a>
-              <% end %> <!-- list-group-item active -->
-              
+              <a href="#" class="list-group-item">
+                <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px">Sau 1</div>
+                <div style="display:inline-block;width: 45%;vertical-align:top;">900, 800</div>
+              </a> <!-- list-group-item active -->
+              <a href="#" class="list-group-item">
+                <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px">Sau 2</div>
+                <div style="display:inline-block;width: 45%;vertical-align:top;">912, 785</div>
+              </a>
+              <a href="#" class="list-group-item">
+                <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px">Sau 3</div>
+                <div style="display:inline-block;width: 45%;vertical-align:top;">933, 650</div>
+              </a>
+              <a href="#" class="list-group-item">
+                <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px">Sau 4</div>
+                <div style="display:inline-block;width: 45%;vertical-align:top;">959, 802</div>
+              </a>
+              <a href="#" class="list-group-item">
+                <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px">Sau 5</div>
+                <div style="display:inline-block;width: 45%;vertical-align:top;">900, 786</div>
+              </a>
+              <a href="#" class="list-group-item">
+                <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px">Sau 6</div>
+                <div style="display:inline-block;width: 45%;vertical-align:top;">900, 800</div>
+              </a> <!-- list-group-item active -->
+              <a href="#" class="list-group-item">
+                <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px">Sau 7</div>
+                <div style="display:inline-block;width: 45%;vertical-align:top;">912, 785</div>
+              </a>
+              <a href="#" class="list-group-item">
+                <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px">Sau 8</div>
+                <div style="display:inline-block;width: 45%;vertical-align:top;">933, 650</div>
+              </a>
+              <a href="#" class="list-group-item">
+                <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px">Sau 9</div>
+                <div style="display:inline-block;width: 45%;vertical-align:top;">959, 802</div>
+              </a>
+              <a href="#" class="list-group-item">
+                <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px">Sau 10</div>
+                <div style="display:inline-block;width: 45%;vertical-align:top;">900, 786</div>
+              </a>
+              <a href="#" class="list-group-item">
+                <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px">Sau 11</div>
+                <div style="display:inline-block;width: 45%;vertical-align:top;">900, 786</div>
+              </a>
+              <a href="#" class="list-group-item">
+                <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px">Sau 12</div>
+                <div style="display:inline-block;width: 45%;vertical-align:top;">900, 800</div>
+              </a> <!-- list-group-item active -->
+              <a href="#" class="list-group-item">
+                <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px">Sau 13</div>
+                <div style="display:inline-block;width: 45%;vertical-align:top;">912, 785</div>
+              </a>
+              <a href="#" class="list-group-item">
+                <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px">Sau 14</div>
+                <div style="display:inline-block;width: 45%;vertical-align:top;">933, 650</div>
+              </a>
+              <a href="#" class="list-group-item">
+                <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px">Sau 15</div>
+                <div style="display:inline-block;width: 45%;vertical-align:top;">959, 802</div>
+              </a>
+              <a href="#" class="list-group-item">
+                <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px">Sau 16</div>
+                <div style="display:inline-block;width: 45%;vertical-align:top;">900, 786</div>
+              </a>
             </div>
           </div>
         </div>
         <div class="w-col w-col-8" style="padding:0px 30px;">
-          <div class="w-row" style="  padding-bottom:10px;">
-            <div class="w-col w-col-6">
-              <h1 style="margin: 0;">Sau</h1>
-            </div>
-            <div class="w-col w-col-6 w-clearfix"><a class="btn btn-default" style="float:right; margin-right:20px" href="#"><span class="glyphicon-pencil" style="padding-right:10px"></span>Rediger</a>
-            </div>
-          </div>
-          <div></div>
-          <div>
-            <h1>Kart</h1>
             <div class="w-embed w-script kart" id="map">
               <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
               <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
@@ -89,6 +143,14 @@
                     .openOn(map);
                 }
                 map.on('click', onMapClick);
+              </script>
+
+              <script>
+                  $(document).ready(function() {
+                    $("#e2").select2({
+                          placeholder: "Select a State",
+                          allowClear: true
+                      }); });
               </script>
             </div>
           </div>
