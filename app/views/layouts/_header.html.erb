@@ -9,7 +9,7 @@
 		<p class="navbar-text pull-right" style="margin-right:20px;">Logget inn som <a href="#" class="navbar-link">Bonden Bo</a></p>
 
 		<% else %>
-		<li><%= link_to @sheep do %>
+		<li><%= link_to sheep_path(@sheep) do %>
 		<button type="button" class="btn btn-default navbar-btn" style="margin-right:10px">Logg inn</button>
 		</li>
 		<% end %>
