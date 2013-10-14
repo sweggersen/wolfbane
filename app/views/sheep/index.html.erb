@@ -1,6 +1,6 @@
 <h1>Listing sheep</h1>
 
-<div class="section" style="border:5px solid blue">
+  <div class="section">
     <div class="inner">
       <div class="w-row">
         <div class="w-col w-col-4" style="padding:0px 30px;">
@@ -8,38 +8,33 @@
             <div class="w-col w-col-6">
               <h1 style="margin: 0;">Sauer</h1>
             </div>
-            <div class="w-col w-col-6"><a class="btn btn-default" style="float:right;" href="#"><span class="glyphicon-plus" style="padding-right:10px"></span><%= link_to 'Ny sau', new_sheep_path %></a>
+            <div class="w-col w-col-6">
+            <a class="btn btn-default" style="float:right;" href="#"><span class="glyphicon-pencil" style="padding-right:10px"></span>Rediger</a>
+            <a class="btn btn-default" style="float:right; margin-right:6px" href="#"><span class="glyphicon-plus" style="padding-right:10px"></span>Legg til</a>
             </div>
           </div>
-          <input class="w-input sheeps" type="text" placeholder="Søk etter sau" name="search_sau" required="required" data-name="search_sau"></input>
+          <select id="e2" style="width:100%; margin-bottom: 10px">
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
           <div class="w-container sheeps"
             style="height: 400px; overflow-y: scroll; overflow-x: hidden;">
+			
             <div class="list-group">
-
-              <% @sheep.each do |sheep| %>
-                <a href="#" class="list-group-item">
-                  <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px"><%= sheep.serial %></div>
-                  <div style="display:inline-block;width: 15%;vertical-align:top;"><%= link_to 'Show', sheep %></div>
-                  <div style="display:inline-block;width: 15%;vertical-align:top;"><%= link_to 'Edit', edit_sheep_path(sheep) %></div>
-                  <div style="display:inline-block;width: 15%;vertical-align:top;"><%= link_to 'Destroy', sheep, method: :delete, data: { confirm: 'Are you sure?' } %></div>
-                </a>
-              <% end %> <!-- list-group-item active -->
-              
+				<% @sheep.each do |sheep| %>
+              <a href="<%= link_to 'Show', sheep %>" class="list-group-item">
+                <div style="display:inline-block;width: 45%;vertical-align:top;padding-right: 10px"><%= sheep.serial %></div>
+                <div style="display:inline-block;width: 45%;vertical-align:top;">900, 800</div>
+              </a>
+			   <% end %> <!-- list-group-item active -->
+			  
             </div>
           </div>
         </div>
         <div class="w-col w-col-8" style="padding:0px 30px;">
-          <div class="w-row" style="  padding-bottom:10px;">
-            <div class="w-col w-col-6">
-              <h1 style="margin: 0;">Sau</h1>
-            </div>
-            <div class="w-col w-col-6 w-clearfix"><a class="btn btn-default" style="float:right; margin-right:20px" href="#"><span class="glyphicon-pencil" style="padding-right:10px"></span>Rediger</a>
-            </div>
-          </div>
-          <div></div>
-          <div>
-            <h1>Kart</h1>
             <div class="w-embed w-script kart" id="map">
+              <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
               <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
               <script>
                 //Her setter man latitude og longitude
@@ -62,14 +57,20 @@
                 }
                 map.on('click', onMapClick);
               </script>
+
+              <script>
+                  $(document).ready(function() {
+                    $("#e2").select2({
+                          placeholder: "Select a State",
+                          allowClear: true
+                      }); });
+              </script>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-**
 
 
 <br>

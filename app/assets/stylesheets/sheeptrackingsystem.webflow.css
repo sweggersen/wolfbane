@@ -49,7 +49,7 @@ h6 {
 p {
   margin-bottom: 0px;
   padding-top: 0px;
-  padding-bottom: 30px;
+  padding-bottom: 0px;
   box-shadow: none;
   opacity: 1;
 }
@@ -79,9 +79,11 @@ p {
 .section {
   position: relative;
   display: block;
+  overflow: hidden;
   height: 100%;
   padding-top: 24px;
   padding-bottom: 24px;
+  float: none;
   background-color: white;
 }
 .section.hero {
@@ -126,10 +128,12 @@ p {
   padding-top: 53px;
 }
 .footer {
-  position: static;
+  position: absolute;
+  top: 0px;
+  z-index: 100;
   display: block;
   overflow: visible;
-  width: auto;
+  width: 100%;
   height: 80px;
   margin-top: 50px;
   clear: none;
@@ -164,7 +168,7 @@ p {
 }
 .kart {
   height: auto;
-  min-height: 350px;
+  min-height: 540px;
   margin-right: 27px;
 }
 .bilde {
@@ -189,6 +193,11 @@ p {
 }
 .header {
   background-color: #5c5c5c;
+}
+.inner {
+  position: static;
+  top: 0px;
+  height: 100%;
 }
 @media (max-width: 991px) {
   .hero-column {
