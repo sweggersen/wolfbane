@@ -13,7 +13,7 @@
           </div>
           <select id="e2" style="width:100%; margin-bottom: 10px">
 				<% @sheep.each do |sheep| %>
-                <option value="<% "sheep.serial" %>"><% "sheep.serial.to_s" %></option>
+                <option value="<% @sheep.serial %>"><% @sheep.serial %></option>
 				<% end %>
             </select>
           <div class="w-container sheeps"
