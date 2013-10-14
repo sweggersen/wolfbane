@@ -12,16 +12,15 @@
             </div>
           </div>
           <select id="e2" style="width:100%; margin-bottom: 10px">
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
+				<% @sheep.each do |sheep| %>
+                <option value="<% sheep.serial %>"><% sheep.serial %></option>
             </select>
           <div class="w-container sheeps"
             style="height: 400px; overflow-y: scroll; overflow-x: hidden;">
 			
             <div class="list-group">
 				<% @sheep.each do |sheep| %>
-              <%= link_to sheep.serial.to_s + " 900, 800", sheep, :class => "list-group-item" %>
+              <%= link_to sheep.serial.to_s + " @post 900, 800", sheep, :class => "list-group-item" %>
 			   <% end %> <!-- list-group-item active -->
 			  
             </div>
