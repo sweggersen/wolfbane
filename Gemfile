@@ -44,6 +44,13 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # bootstrap by twitter
 gem 'bootstrap-sass', '2.3.2.0'
 
+# pagination of long listings of entries
+gem 'will_paginate', '3.0.5'
+gem 'bootstrap-will_paginate', '0.0.10'
+
+# Factory gem for creating content
+gem 'faker', '1.1.2'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
