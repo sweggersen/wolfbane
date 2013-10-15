@@ -1,15 +1,14 @@
   <header class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
       <div class="company">
-        <%= link_to "Sheep Tracking System", '#', id: "logo" %>
+        <%= link_to "Sheep Tracking System", '/', id: "logo" %>
         <div class="w-col w-col-8 navigation-column"><a class="nav-link" href="#">Truls Kaare Bondegutt </a></div>
         <nav>
           <ul class="nav pull-right">
             <% if signed_in? %>
-              <li><%= link_to "Map", '#' %></li>
-              <li><%= link_to "Sheep", '#' %></li>
-              <li><%= link_to "Farmers", '#' %></li>
-              <li><%= link_to "Profile", '#' %></li>
+              <li><%= link_to "SheepScope", '/sheep' %></li>
+              <li><%= link_to "Farmers Lounge", '/farmers' %></li>
+              <li><%= link_to "Profile", edit_farmer_path(current_user) %></li>
               <li><%= link_to "Log out", '#' %></li>
             <% else %>
               <li><%= link_to "Log in", '#' %></li>
