@@ -31,53 +31,5 @@
     <%= yield %>
     <%= render 'layouts/footer' %>
     <%= debug(params) if Rails.env.development? %>
-  </div>
-  
-    <div class="nav-section">
-    <div class="w-container">
-      <div class="w-row">
-        <div class="w-col w-col-4">
-          <div class="company">Sheep Tracking System</div>
-        </div>
-        <div class="w-col w-col-8 navigation-column"><a class="nav-link" href="#">Truls Kaare Bondegutt </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="section">
-    <div>
-      <div class="w-row">
-        <div class="w-col w-col-4">
-          <div class="w-row">
-            <div class="w-col w-col-6">
-              <h1>Sauer</h1>
-            </div>
-            <div class="w-col w-col-6"><a class="button" href="#">Legg til</a>
-            </div>
-          </div>
-          <input class="w-input sheeps" type="text" placeholder="Søk etter sau" name="search_sau" required="required" data-name="search_sau"></input>
-          <div class="w-container sheeps"></div>
-        </div>
-        <div class="w-col w-col-8">
-          <div class="w-row">
-            <div class="w-col w-col-6">
-              <h1>Sau</h1>
-            </div>
-            <div class="w-col w-col-6 w-clearfix"><a class="button" href="#">Rediger</a>
-            </div>
-          </div>
-          <div></div>
-          <div>
-            <h1>Kart</h1>
-            <div class="w-embed w-script kart" id="map">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="section footer">
-    <div class="footertext">© Wolfbane 2013</div>
-  </div>
 </body>
 </html>
