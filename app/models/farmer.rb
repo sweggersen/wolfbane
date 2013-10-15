@@ -3,7 +3,7 @@ class Farmer < ActiveRecord::Base
   before_create :create_remember_token
   before_save {
     self.email = email.downcase
-    self.backup = backup.downcase
+    self.backup = backup.downcase if self.backup
   }
   validates :name, presence: true, length: { maximum: 50 }
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
