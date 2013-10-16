@@ -49,10 +49,16 @@ namespace :db do
                            notes: note,
                            sheep_id: sheep.id)
         end
-
+        pos = [63.6268, 11.5668]
+        d = 0.0030
+        10.times do
+          pos = center.map { |p| (rand() * d) - d/2 }
+          Positions.create!(latitude: pos[0],
+                            longitude: pos[1],
+                            attacked: false,
+                            sheed_id: sheep.id)
+        end
       end
-
-
     end
   end
 end

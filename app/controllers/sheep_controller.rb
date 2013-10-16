@@ -1,6 +1,6 @@
 class SheepController < ApplicationController
   before_action :signed_in_farmer
-  #before_action :set_sheep, only: [:show, :create, :edit, :update, :destroy]
+  before_action :set_sheep, only: [:show, :create, :edit, :update, :destroy]
 
   # GET /sheep
   # GET /sheep.json
@@ -65,11 +65,11 @@ class SheepController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sheep
-      @sheep = Sheep.find(params[:id])
+      @sheep = current_user.sheep.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sheep_params
-      params.require(:sheep).permit(:serial)
+      params.require(:sheep).permit(:id, :serial)
     end
 end
