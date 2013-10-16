@@ -3,10 +3,12 @@
 <table>
   <thead>
     <tr>
-      <th>Serial</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <%= link_to 'Add sheep', new_sheep_path %>
+      <% if @sheep.count == 0 %>
+        <th>No sheep in database!</th>
+      <% else %>
+        <th>Serial</th>
+      <% end %>
     </tr>
   </thead>
 
@@ -80,4 +82,3 @@
 
 	</script>
 
-<%= link_to 'New Sheep', new_sheep_path %>

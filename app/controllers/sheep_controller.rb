@@ -1,10 +1,11 @@
 class SheepController < ApplicationController
-  before_action :set_sheep, only: [:show, :edit, :update, :destroy]
+  before_action :signed_in_farmer
+  #before_action :set_sheep, only: [:show, :create, :edit, :update, :destroy]
 
   # GET /sheep
   # GET /sheep.json
   def index
-    @sheep = Sheep.all
+    @sheep = current_user.sheep.all
   end
 
   # GET /sheep/1
@@ -14,7 +15,7 @@ class SheepController < ApplicationController
 
   # GET /sheep/new
   def new
-    @sheep = Sheep.new
+    @sheep = current_user.sheep.build(sheep_params)
   end
 
   # GET /sheep/1/edit
@@ -24,7 +25,7 @@ class SheepController < ApplicationController
   # POST /sheep
   # POST /sheep.json
   def create
-    @sheep = Sheep.new(sheep_params)
+    @sheep = current_user.sheep.build(sheep_params)
 
     respond_to do |format|
       if @sheep.save
