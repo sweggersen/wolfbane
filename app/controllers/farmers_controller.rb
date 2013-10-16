@@ -76,9 +76,6 @@ class FarmersController < ApplicationController
                                      :password_confirmation)
     end
 
-    def signed_in_farmer
-      redirect_to login_url, notice: "Please log in." unless signed_in?
-    end
     def correct_farmer
       @farmer = Farmer.find(params[:id])
       redirect_to root_url unless current_user?(@farmer)

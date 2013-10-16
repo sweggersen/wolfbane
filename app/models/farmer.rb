@@ -1,5 +1,5 @@
 class Farmer < ActiveRecord::Base
-  has_many :sheep
+  has_many :sheep, dependent: :destroy
   before_create :create_remember_token
   before_save {
     self.email = email.downcase

@@ -23,6 +23,14 @@ module SessionsHelper
     user == current_user
   end
 
+  # TODO: consistent method naming refactoring
+  def signed_in_farmer
+    unless signed_in?
+      store_location
+      redirect_to login_url, notice: "Please log in."
+    end
+  end
+
   def sign_out
     self.current_user = nil
     cookies.delete(:remember_token)

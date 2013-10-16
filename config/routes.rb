@@ -3,7 +3,7 @@ Wolfbane::Application.routes.draw do
 
   resources :positions
 
-  resources :sheep
+  resources :sheep, only: [:create, :edit, :destroy]
 
   resources :farmers
 
