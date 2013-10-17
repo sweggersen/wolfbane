@@ -1,11 +1,11 @@
 <h1>Listing sheep</h1>
 
-<%= link_to 'Add Sheep', new_sheep_path %>
+<%= link_to 'Add Sheep', new_sheep_path, class: "btn btn-large btn-primary" %>
 
 <table>
   <thead>
     <tr>
-      <td>Serial Numbers</td>
+      <td><h3>Sheep Serial Numbers</h3></td>
     </tr>
   </thead>
 
@@ -13,7 +13,7 @@
     <% @sheep.each do |sheep| %>
       <tr>
         <td><%= link_to sheep.serial_num, sheep %></td>
-        <td><%= link_to 'Delete', sheep, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete Sheep', sheep, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

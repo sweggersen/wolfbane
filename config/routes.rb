@@ -1,5 +1,5 @@
 Wolfbane::Application.routes.draw do
-  resources :medicals
+  resources :medicals, only: [:new, :create, :destroy]
 
   resources :positions, only: [:new, :create]
 
