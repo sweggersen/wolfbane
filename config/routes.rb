@@ -1,7 +1,7 @@
 Wolfbane::Application.routes.draw do
   resources :medicals
 
-  resources :positions
+  resources :positions, only: [:new, :create]
 
   resources :sheep
 

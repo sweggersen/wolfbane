@@ -1,11 +1,42 @@
 namespace :db do
   desc "Fill database with sample data"
+  def add_medicals(sheep, number)
+      now = DateTime.now
+      medical = sheep.medicals.new
+      date = now << 3 + rand(70)
+      weight = 3 + rand(4)
+      medical.datetime = date
+      medical.weight = weight
+      medical.notes = "A new sheep is born!"
+      medical.save
+      number.times do
+        days_since_last = now - date
+        medical = sheep.medicals.new
+        new_date = date + rand(days_since_last / 2)
+        weight += (new_date - date) * 0.03
+        date = new_date
+        medical.datetime = date
+        medical.weight = weight
+        medical.notes = case rand(10)
+        when 1..4 then "Routine weighing"
+        when 5..7 then "Got a vaccination shot"
+        when 8..9 then "Got a tetanus shot"
+        else "Got an anal bleaching"
+        end
+        medical.save
+      end
+  end
   task populate: :environment do
-    Farmer.create!(name: "Root",
+    root = Farmer.create!(name: "Root",
                    email: "master@universe.com",
                    phone: "+4700000000",
                    password: "rootroot",
                    password_confirmation: "rootroot")
+    sheep = root.sheep.new
+    sheep.serial = 0
+    sheep.save
+    add_medicals(sheep, 100)
+    puts "Created Root Farmer"
     99.times do |n|
       name = Faker::Name.name
       email = "example-#{n+1}@wolfbane.com"
@@ -19,46 +50,25 @@ namespace :db do
                               password: password,
                               password_confirmation: password)
       
-      next # remove this to create sheep etc
       100.times do
-        serial = sprintf "04d", rand(10**4)
-        sheep = Sheep.create!(serial: serial,
-                              farmer: farmer)
-        now = DateTime.now
-        date = now << 3 + rand(70)
-        weight = 3 + rand(4)
-        note = "A new sheep is born!"
-        Medicals.create!(datetime: date,
-                         weight: weight,
-                         notes: note,
-                         sheep_id: sheep.id)
-        5.times do
-          days_since_last = now - date
-          break if days_since_last < 3
-          date = date + rand(days_since_last)
-          weight = weight + days_since_last * 0.03
-          note = case rand(20)
-          when 0..4 then "Routine weighing"
-          when 5..7 then "Got a vaccination shot"
-          when 8..9 then "Got a tetanus shot"
-          when 10 then "Got an anal bleaching"
-          else next
-          end
-          Medicals.create!(datetime: date,
-                           weight: weight,
-                           notes: note,
-                           sheep_id: sheep.id)
-        end
+        sheep = farmer.sheep.new
+        sheep.serial = sprintf "%04d", rand(10**4)
+        sheep.save
+
+        add_medicals(sheep, 2 + rand(3) )
+
         pos = [63.6268, 11.5668]
         d = 0.0030
         10.times do
-          pos = center.map { |p| (rand() * d) - d/2 }
-          Positions.create!(latitude: pos[0],
-                            longitude: pos[1],
-                            attacked: false,
-                            sheed_id: sheep.id)
+          pos.map! { |p| p + ((rand() * d) - d/2) }
+          position = sheep.positions.new
+          position.latitude = pos[0]
+          position.longitude = pos[1]
+          position.attacked = false
+          position.save
         end
       end
+    puts "Farmer created: #{farmer.email}"
     end
   end
 end

@@ -7,10 +7,10 @@
             <% if signed_in? %>
               <li><%= link_to "SheepScope", '/sheep' %></li>
               <li><%= link_to "Farmers Lounge", '/farmers' %></li>
-              <li><%= link_to "Profile", edit_farmer_path(current_user) %></li>
-              <li><%= link_to "Log out", logout_path %></li>
+              <li><%= link_to "Log out", logout_path, method: :delete %></li>
+              <li><%= link_to current_user.name, edit_farmer_path(current_user) %></li>
             <% else %>
-              <li><%= link_to "Log in", '#' %></li>
+              <li><%= link_to "Log in", login_path %></li>
             <% end %>
           </ul>
         </nav>

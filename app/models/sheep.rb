@@ -4,4 +4,7 @@ class Sheep < ActiveRecord::Base
   validates :farmer_id, presence: true
   has_many :positions
   has_many :medicals
+  def serial_num
+    sprintf "%04d", serial
+  end
 end

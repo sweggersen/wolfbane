@@ -1,11 +1,11 @@
 class SheepController < ApplicationController
   before_action :signed_in_farmer
-  before_action :set_sheep, only: [:show, :create, :edit, :update, :destroy]
+  before_action :set_sheep, only: [:show, :edit, :update, :destroy]
 
   # GET /sheep
   # GET /sheep.json
   def index
-    @sheep = current_user.sheep.all
+    @sheep = current_user.sheep
   end
 
   # GET /sheep/1
@@ -15,7 +15,7 @@ class SheepController < ApplicationController
 
   # GET /sheep/new
   def new
-    @sheep = current_user.sheep.build(sheep_params)
+    @sheep = current_user.sheep.new
   end
 
   # GET /sheep/1/edit
@@ -30,7 +30,10 @@ class SheepController < ApplicationController
     respond_to do |format|
       if @sheep.save
         format.html { redirect_to @sheep, notice: 'Sheep was successfully created.' }
+        #format.html { redirect_to sheep_index_url }
         format.json { render action: 'show', status: :created, location: @sheep }
+        #format.json { head :no_content }
+        
       else
         format.html { render action: 'new' }
         format.json { render json: @sheep.errors, status: :unprocessable_entity }
@@ -70,6 +73,6 @@ class SheepController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sheep_params
-      params.require(:sheep).permit(:id, :serial)
+      params.require(:sheep).permit(:serial)
     end
 end
