@@ -1,12 +1,12 @@
   <header class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
       <div class="company">
-        <%= link_to "Sheep Tracking System", '/', id: "logo" %>
+        <%= link_to "Sheep Tracking System", root_path, id: "logo" %>
         <nav>
           <ul class="nav pull-right">
             <% if signed_in? %>
-              <li><%= link_to "SheepScope", '/sheep' %></li>
-              <li><%= link_to "Farmers Lounge", '/farmers' %></li>
+              <li><%= link_to "SheepScope", sheep_index_path %></li>
+              <li><%= link_to "Farmers Lounge", farmers_path %></li>
               <li><%= link_to "Log out", logout_path, method: :delete %></li>
               <li><%= link_to current_user.name, edit_farmer_path(current_user) %></li>
             <% else %>
