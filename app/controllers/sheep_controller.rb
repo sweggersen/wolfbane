@@ -11,6 +11,8 @@ class SheepController < ApplicationController
   # GET /sheep/1
   # GET /sheep/1.json
   def show
+    @medical = @sheep.medicals.build(sheep_id: @sheep.id)
+    @medicals = @sheep.medicals.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /sheep/new

@@ -17,6 +17,8 @@ class Farmer < ActiveRecord::Base
   validates :password, length: { minimum: 8 }
   validate :valid_backup
 
+  attr_accessor :current_sheep
+
   def valid_backup
     if not (self.backup.nil? || self.backup.blank? || Farmer.find_by_email(backup))
       errors.add(:backup, 'no such email registrated')
