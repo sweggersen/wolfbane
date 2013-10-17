@@ -51,6 +51,8 @@ gem 'bootstrap-will_paginate', '0.0.10'
 # Factory gem for creating content
 gem 'faker', '1.1.2'
 
+# Sending mails
+gem 'actionmailer'
 # Use unicorn as the app server
 # gem 'unicorn'
 
