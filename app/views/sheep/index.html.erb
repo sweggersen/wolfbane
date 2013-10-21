@@ -52,10 +52,11 @@
 				
 				// Lager dictonary med marker til hver sau, der key = 'sau id', og value = 'marker til sauen'
                 var marker = {}
-				for (var serial in js_sheep.serial) {
-                //for (var i = 1; i < 17; i++) {
+				//for (var serial in js_sheep.serial) {
+                for (var i = 1; i < 17; i++) {
                         marker[i] = L.marker([63.6268 - Math.random(4) / 50, 11.5668 + Math.random(4) / 50], {icon: normalMarker}).
-                        addTo(map).bindPopup("<b>Sau "+ serial +"</b><br /> er her");
+                        //addTo(map).bindPopup("<b>Sau "+ serial +"</b><br /> er her");
+                        addTo(map).bindPopup("<b>Sau "+ i +"</b><br /> er her");
                     }
 
                     // MERK! Disse kan tas bort, uten noen ettervirkning - Bare for å se noen rød markers
