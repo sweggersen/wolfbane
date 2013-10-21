@@ -48,7 +48,7 @@
                                 var deathMarker = L.icon({iconUrl: 'images/marker_black.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
 
 
-				var js_sheep = <%= @sheep.to_json %>;
+				var js_sheep = @Html.Raw(<%= @sheep.to_json %>);
 				
 				// Lager dictonary med marker til hver sau, der key = 'sau id', og value = 'marker til sauen'
                 var marker = {}
