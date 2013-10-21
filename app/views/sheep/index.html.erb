@@ -31,6 +31,9 @@
             <div class="w-embed w-script kart" id="map">
               <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
               <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+			  
+			  <%= javascript_tag "var sheep = #{@sheep.to_json}" %>
+			  
               <script>
 
                 //Her setter man latitude og longitude
