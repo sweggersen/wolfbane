@@ -1,0 +1,10 @@
+<B> --- Første linje i FOOTER --- </B>
+<footer class="footer">
+  <small>
+    <nav>
+    Wolfbane 2013
+    <a href="http://en.wikipedia.org/wiki/Copyleft">Copyleft</a>
+    by Gruppe 20
+    </nav>
+  </small>
+</footer>

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @farmer.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @farmer.email %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @farmer.phone %>
+</p>
+
+<p>
+  <strong>Backup:</strong>
+  <% if @farmer.backup %>
+    <% link_to @farmer.backup, Farmer.find_by_email(@farmer.backup) %>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_farmer_path(@farmer) %>

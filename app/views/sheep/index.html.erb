@@ -1,0 +1,106 @@
+  <div class="section">
+    <div class="inner">
+      <div class="w-row">
+        <div class="w-col w-col-4" style="padding:0px 30px;">
+          <div class="w-row" style="padding-bottom:10px;">
+            <div class="w-col w-col-6">
+              <h1 style="margin: 0;">Sauer</h1>
+            </div>
+            <div class="w-col w-col-6">
+            <%= link_to 'Legg til', controller="sheep/new", :class => "btn btn-default" %>
+
+            </div>
+          </div>
+          <select id="e2" style="width:100%; margin-bottom: 10px">
+				<% @sheep.each do |sheep| %>
+                <option value="<%= sheep.serial.to_s %>"><%= sheep.serial.to_s %></option>
+				<% end %>
+            </select>
+          <div class="w-container sheeps"
+            style="height: 400px; overflow-y: scroll; overflow-x: hidden;">
+			
+            <div class="list-group">
+				<% @sheep.each do |sheep| %>
+              <a class="list-group-item">
+                <div style="display:inline-block;width: 20%;vertical-align:top;padding-right: 10px">Sau <%= sheep.serial %></div>
+                <div style="display:inline-block;width: 30%;vertical-align:top;padding-right: 10px">900, 800</div>
+                <div onclick="onSauClick(<%= sheep.serial %>)" style="display:inline-block;width: 20%;vertical-align:top;padding-right: 10px; cursor:pointer;">Map</div>
+				<%= link_to "Delete", @sheep, :confirm => 'Are you sure?', :method => :delete %>
+              </a>
+			  <% end %> <!-- list-group-item active -->
+			  
+            </div>
+          </div>
+        </div>  
+        <div class="w-col w-col-8" style="padding:0px 30px;">
+          <div class="w-embed w-script kart" id="map">
+            <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+              <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+
+              <%= javascript_tag "var sheeps = #{@sheep.to_json}" %>
+
+              <script>
+
+              //Her setter man latitude og longitude
+              var map = L.map('map').setView([63.6268, 11.5668], 13);
+
+              //Denne er for opencyclemap layout (Gir høydekvoter)
+              L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
+              maxZoom: 18,
+              attribution: '&copy; OpenCycleMap, ' + 'Map data '
+              }).addTo(map);
+
+              // Lager de forskjellige markørene
+              var normalMarker = L.icon({iconUrl: 'assets/marker_normal.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
+              var alertMarker = L.icon({iconUrl: 'assets/marker_alert.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
+              var deathMarker = L.icon({iconUrl: 'assets/marker_black.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
+
+              // Lager dictonary med marker til hver sau, der key = 'sau id', og value = 'marker til sauen'
+              var marker = {}
+              //for (var serial in js_sheep.serial) {
+
+              var count = sheeps.length;
+              for (var i = 0; i < count; i++) {
+                marker[sheeps[i]['serial']] = L.marker([63.6268 - Math.random(4) / 50, 11.5668 + Math.random(4) / 50], { icon: normalMarker }).
+                //addTo(map).bindPopup("<b>Sau "+ serial +"</b><br /> er her");
+                addTo(map).bindPopup("<b>Sau "+ sheeps[i]['serial'] +"</b><br /> er her");
+              }
+
+              // Denne kalles på av html (koden neders), id til klikkobjektet trenger å ha samme id som 'sau id'
+              function onSauClick(id) {
+              if (id in marker)
+              marker[id].openPopup();
+              }
+
+              /*
+              var popup = L.popup();
+
+              function onMapClick(e) {
+              popup
+              .setLatLng(e.latlng)
+              .setContent("You clicked the map at " + e.latlng.toString())
+              .openOn(map);
+              }
+
+
+              map.on('click', onMapClick);
+              */
+
+              </script>
+
+              <script>
+              // Denne kjører når dokumentet er ferdig lastet
+              $(document).ready(function() {
+              // Denne starter Select2 (søkerammeverket)
+              $("#e2").select2({
+                placeholder: "Select a State",
+                allowClear: true
+                })
+              });
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<br>
