@@ -2,7 +2,19 @@
 
 <table> <thead> <tr> <th>Serial</th> <th></th> <th></th> <th></th> </tr> </thead>
 
-<tbody> <% @sheep.each do |sheep| %> <tr> <td><%= sheep.serial %></td> <td><%= link_to ‘Show’, sheep %></td> <td><%= link_to ‘Edit’, edit_sheep_path(sheep) %></td> <td><%= link_to ‘Destroy’, sheep, method: :delete, data: { confirm: ‘Are you sure?’ } %></td> </tr> <% end %> </tbody> </table>
+<tbody> 
+
+	<% @sheep.each do |sheep| %> 
+	<tr> 
+		<td><%= sheep.serial %></td>
+		<td><%= link_to ‘Show’, sheep %></td>
+		<td><%= link_to ‘Edit’, edit_sheep_path(sheep) %></td>
+		<td><%= link_to ‘Destroy’, sheep, method: :delete, data: { confirm: ‘Are you sure?’ } %></td>
+	</tr>
+	<% end %>
+	
+</tbody>
+</table>
 
 <br>
 

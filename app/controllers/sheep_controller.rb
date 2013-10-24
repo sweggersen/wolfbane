@@ -55,14 +55,13 @@ class SheepController < ApplicationController
   # DELETE /sheep/1
   # DELETE /sheep/1.json
   def destroy
-    @sheep = Sheep.find(params[:id])
     @sheep.destroy
     respond_to do |format|
       format.html { redirect_to sheep_index_url }
       format.json { head :no_content }
     end
   end
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sheep

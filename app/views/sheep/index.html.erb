@@ -1,14 +1,16 @@
   <div class="section">
     <div class="inner">
-      <div class="w-row">
-        <div class="w-col w-col-4" style="padding:0px 30px;">
+      <div class="row">
+        <div class="col-lg-4" style="padding:0px 30px;">
           <div class="w-row" style="padding-bottom:10px;">
-            <div class="w-col w-col-6">
-              <h1 style="margin: 0;">Sauer</h1>
+            <div class="col-lg-6">
+              <h1>Sauer</h1>
             </div>
-            <div class="w-col w-col-6">
-            <%= link_to 'Legg til', controller="sheep/new", :class => "btn btn-default" %>
-
+            <div class="col-lg-6">
+                <div class="btn btn-default"  style="float:right; margin-right:6px">
+					<span class="glyphicon glyphicon-plus"></span>
+            		<%= link_to 'Legg til', controller="sheep/new" %>
+				</div>
             </div>
           </div>
           <select id="e2" style="width:100%; margin-bottom: 10px">
@@ -16,23 +18,32 @@
                 <option value="<%= sheep.serial.to_s %>"><%= sheep.serial.to_s %></option>
 				<% end %>
             </select>
-          <div class="w-container sheeps"
+          <div class="container sheeps"
             style="height: 400px; overflow-y: scroll; overflow-x: hidden;">
-			
             <div class="list-group">
 				<% @sheep.each do |sheep| %>
-              <a class="list-group-item">
-                <div style="display:inline-block;width: 20%;vertical-align:top;padding-right: 10px">Sau <%= sheep.serial %></div>
-                <div style="display:inline-block;width: 30%;vertical-align:top;padding-right: 10px">900, 800</div>
-                <div onclick="onSauClick(<%= sheep.serial %>)" style="display:inline-block;width: 20%;vertical-align:top;padding-right: 10px; cursor:pointer;">Map</div>
-				<%= link_to "Delete", @sheep, :confirm => 'Are you sure?', :method => :delete %>
-              </a>
+              <div class="list-group-item">
+                <div style="display:inline-block;width: 15%;vertical-align:top;padding-right: 10px">Sau <%= sheep.serial %></div>
+                <div style="display:inline-block;width: 18%;vertical-align:top;padding-right: 10px">900, 800</div>
+				<div style="display:inline-block;width: 15%;vertical-align:top;padding-right: 10px; cursor:pointer;">
+					<span class="glyphicon glyphicon-pencil"></span>
+					<%= link_to 'Edit', edit_sheep_path(sheep) %>
+				</div>
+                <div onclick="onSauClick(<%= sheep.serial %>)" style="display:inline-block;width: 18%;vertical-align:top;padding-right: 10px; cursor:pointer;">
+					<span class="glyphicon glyphicon-map-marker"></span>
+					Map
+				</div>
+				<div style="display:inline-block;width: 24%;vertical-align:top;padding-right: 10px; cursor:pointer;">
+					<span class="glyphicon glyphicon-trash"></span>
+					<%= link_to 'Destroy', sheep, method: :delete, data: { confirm: 'Are you sure?' } %>
+				</div>
+              </div>
 			  <% end %> <!-- list-group-item active -->
 			  
             </div>
           </div>
         </div>  
-        <div class="w-col w-col-8" style="padding:0px 30px;">
+        <div class="col-lg-8" style="padding:0px 30px;">
           <div class="w-embed w-script kart" id="map">
             <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
               <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
@@ -69,7 +80,7 @@
               // Denne kalles på av html (koden neders), id til klikkobjektet trenger å ha samme id som 'sau id'
               function onSauClick(id) {
               if (id in marker)
-              marker[id].openPopup();
+              	marker[id].openPopup();
               }
 
               /*
@@ -103,4 +114,3 @@
         </div>
       </div>
     </div>
-<br>
