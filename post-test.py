@@ -6,8 +6,8 @@ id = 4685
 latitude = 63.626745
 longitude = 11.351395
 
-url = 'http://wolfbane.herokuapp.com/post'
-form = urlencode((('id', id), ('lat', latitude), ('long', longitude)))
+url = 'http://wolfbane.herokuapp.com/report'
+form = urlencode((('sheep_id', id), ('latitude', latitude), ('longitude', longitude)))
 print form
 try:
     f = urlopen(url, form)

@@ -47,8 +47,8 @@ def newPosition(pos, minimum, maximum):
 
 #do actual transmission of form data
 def transmit(id, latitude, longitude):
-    url = 'http://wolfbane.herokuapp.com/post'
-    form = urlencode((('id', id), ('lat', latitude), ('long', longitude)))
+    url = 'http://wolfbane.herokuapp.com/report'
+    form = urlencode((('sheep_id', id), ('latitude', latitude), ('longitude', longitude)))
     try:
         f = urlopen(url, form)
         print f.getcode()
