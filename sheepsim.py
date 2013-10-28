@@ -1,25 +1,20 @@
 from sys import stdin
 from time import sleep
 from random import random
+from urllib import urlencode, urlopen
 
 
-global positions
 positions = {} #dictionary for previous position. ID as key, tuple of lat, long as value
 
 #define global constants
-global SLEEP_TIME
 #boundary box
-global MAX_LAT
 MAX_LAT = 63.726403
-global MIN_LAT
 MIN_LAT = 63.660369
-global MIN_LONG
 MIN_LONG = 11.443253
-global MAX_LONG
 MAX_LONG = 11.536636
-global MAX_MOVE #max lat or long variance per position update (0.01 = ~500m)
+#max lat or long variance per position update (0.01 = ~500m)
 MAX_MOVE = 0.01
-global START_POS #center of area where sheep will be released
+#center of area where sheep will be released
 START_POS = (MAX_LAT - MAX_MOVE, MIN_LONG + MAX_MOVE)
 
 
@@ -33,8 +28,15 @@ def newPosition(pos, minimum, maximum):
 
 
 #do actual transmission of form data
-def transmit(ID, lat, lon):
-    pass
+def transmit(id, latitude, longitude):
+    url = 'http://wolfbane.herokuapp.com/post'
+    form = urlencode((('id', id), ('lat', latitude), ('long', longitude)))
+    try:
+        f = urlopen(url, form)
+        print f.getcode()
+        #print f.read()
+    except (URLError, HTTPError) as e:
+        print e
 
 
 #do per sheep
@@ -104,5 +106,7 @@ def init():
 
 
 
-
-init()
+try:
+    init()
+except KeyboardInterrupt:
+    print '\nUser ended simulation'
