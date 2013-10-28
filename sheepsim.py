@@ -1,7 +1,25 @@
+# 
+# WolfBane sheepsim
+# 
+# Provide txt file with ranges to stdin
+# Example command: python sheepsim.py < ranges.txt
+# 
+# txt file should be of the form:
+# from (and including) ID and to (and including) ID separated by -
+# or single ID on separate lines
+# Example:
+# 1337-1350
+# 4685
+# 5000-5010
+# 9999
+# 
+
+
 from sys import stdin
 from time import sleep
 from random import random
-from urllib import urlencode, urlopen
+from urllib import urlencode
+from urllib2 import urlopen, URLError, HTTPError
 
 
 positions = {} #dictionary for previous position. ID as key, tuple of lat, long as value
