@@ -49,8 +49,7 @@ test:
   encoding: unicode
   database: wolfbane_test
   pool: 5
-#  username: wolfbane
-  username: trond
+  username: wolfbane
   password:
 
 production:
@@ -58,6 +57,5 @@ production:
   encoding: unicode
   database: wolfbane_production
   pool: 5
-#  username: wolfbane
-  username: trond
+  username: wolfbane
   password:

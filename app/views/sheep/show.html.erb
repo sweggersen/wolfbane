@@ -1,9 +1,22 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Serial:</strong>
-  <%= @sheep.serial %>
-</p>
+<h3>Sheep # <%=@sheep.serial_num %></h3>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <%= link_to 'Edit serial number', edit_sheep_path(@sheep) %> |
+      <%= link_to 'Back to sheep overview', sheep_index_path %>
+    </section>
+    <h3>New Medical Entry</h3>
+    <section>
+      <%= render 'medicals/form' %>
+    </section>
+  </aside>
+  <div class="span8">
+    <h3>Medical History</h3>
+    <%= render 'medicals/medical_history' %>
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_sheep_path(@sheep) %> |
-<%= link_to 'Back', sheep_index_path %>
+
+

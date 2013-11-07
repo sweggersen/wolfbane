@@ -1,9 +1,9 @@
 class Farmer < ActiveRecord::Base
-  has_many :sheep
+  has_many :sheep, dependent: :destroy
   before_create :create_remember_token
   before_save {
     self.email = email.downcase
-    self.backup = backup.downcase
+    self.backup = backup.downcase if self.backup
   }
   validates :name, presence: true, length: { maximum: 50 }
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -16,6 +16,8 @@ class Farmer < ActiveRecord::Base
   has_secure_password
   validates :password, length: { minimum: 8 }
   validate :valid_backup
+
+  attr_accessor :current_sheep
 
   def valid_backup
     if not (self.backup.nil? || self.backup.blank? || Farmer.find_by_email(backup))

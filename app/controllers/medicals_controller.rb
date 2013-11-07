@@ -4,7 +4,6 @@ class MedicalsController < ApplicationController
   # GET /medicals
   # GET /medicals.json
   def index
-    @medicals = Medical.all
   end
 
   # GET /medicals/1
@@ -14,7 +13,7 @@ class MedicalsController < ApplicationController
 
   # GET /medicals/new
   def new
-    @medical = Medical.new
+#    @medical = Medical.new
   end
 
   # GET /medicals/1/edit
@@ -25,10 +24,9 @@ class MedicalsController < ApplicationController
   # POST /medicals.json
   def create
     @medical = Medical.new(medical_params)
-
     respond_to do |format|
       if @medical.save
-        format.html { redirect_to @medical, notice: 'Medical was successfully created.' }
+        format.html { redirect_to Sheep.find_by_id @medical.sheep_id }
         format.json { render action: 'show', status: :created, location: @medical }
       else
         format.html { render action: 'new' }
@@ -56,7 +54,7 @@ class MedicalsController < ApplicationController
   def destroy
     @medical.destroy
     respond_to do |format|
-      format.html { redirect_to medicals_url }
+      format.html { redirect_to Sheep.find_by_id @medical.sheep_id }
       format.json { head :no_content }
     end
   end
@@ -69,6 +67,6 @@ class MedicalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def medical_params
-      params.require(:medical).permit(:datetime, :weight, :notes)
+      params.require(:medical).permit(:sheep_id, :datetime, :weight, :notes)
     end
 end

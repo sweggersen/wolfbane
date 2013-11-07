@@ -1,7 +1,7 @@
 Wolfbane::Application.routes.draw do
-  resources :medicals
+  resources :medicals, only: [:new, :create, :destroy]
 
-  resources :positions
+  resources :positions, only: [:new, :create]
 
   resources :sheep
 
@@ -12,12 +12,13 @@ Wolfbane::Application.routes.draw do
   match '/signup', to: 'farmers#new', via: 'get'
   match '/login', to: 'sessions#new', via: 'get'
   match '/logout', to: 'sessions#destroy', via: 'delete'
+  match '/report', to: 'positions#new' , via: 'get'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'sessions#new'
+  root :to => 'farmers#new'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

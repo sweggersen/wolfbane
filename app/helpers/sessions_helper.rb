@@ -7,7 +7,7 @@ module SessionsHelper
   end
 
   def signed_in?
-    !@current_user.nil?
+    !current_user.nil?
   end
 
   def current_user=(user)
@@ -17,6 +17,18 @@ module SessionsHelper
   def current_user
     remember_token = Farmer.encrypt(cookies[:remember_token])
     @current_user ||= Farmer.find_by_remember_token(remember_token)
+  end
+
+  def current_user?(user)
+    user == current_user
+  end
+
+  # TODO: consistent method naming refactoring
+  def signed_in_farmer
+    unless signed_in?
+      store_location
+      redirect_to login_url, notice: "Please log in."
+    end
   end
 
   def sign_out

@@ -1,116 +1,129 @@
-  <div class="section">
-    <div class="inner">
-      <div class="row">
-        <div class="col-lg-4" style="padding:0px 30px;">
-          <div class="w-row" style="padding-bottom:10px;">
-            <div class="col-lg-6">
-              <h1>Sauer</h1>
-            </div>
-            <div class="col-lg-6">
-                <div class="btn btn-default"  style="float:right; margin-right:6px">
-					<span class="glyphicon glyphicon-plus"></span>
-            		<%= link_to 'Legg til', controller="sheep/new" %>
-				</div>
-            </div>
-          </div>
-          <select id="e2" style="width:100%; margin-bottom: 10px">
-				<% @sheep.each do |sheep| %>
-                <option value="<%= sheep.serial.to_s %>"><%= sheep.serial.to_s %></option>
-				<% end %>
-            </select>
-          <div class="container sheeps"
-            style="height: 400px; overflow-y: scroll; overflow-x: hidden;">
-            <div class="list-group">
-				<% @sheep.each do |sheep| %>
-              <div class="list-group-item">
-                <div style="display:inline-block;width: 15%;vertical-align:top;padding-right: 10px">Sau <%= sheep.serial %></div>
-                <div style="display:inline-block;width: 18%;vertical-align:top;padding-right: 10px">900, 800</div>
-				<div style="display:inline-block;width: 15%;vertical-align:top;padding-right: 10px; cursor:pointer;">
-					<span class="glyphicon glyphicon-pencil"></span>
-					<%= link_to 'Edit', edit_sheep_path(sheep) %>
-				</div>
-                <div onclick="onSauClick(<%= sheep.serial %>)" style="display:inline-block;width: 18%;vertical-align:top;padding-right: 10px; cursor:pointer;">
-					<span class="glyphicon glyphicon-map-marker"></span>
-					Map
-				</div>
-				<div style="display:inline-block;width: 24%;vertical-align:top;padding-right: 10px; cursor:pointer;">
-					<span class="glyphicon glyphicon-trash"></span>
-					<%= link_to 'Destroy', sheep, method: :delete, data: { confirm: 'Are you sure?' } %>
-				</div>
-              </div>
-			  <% end %> <!-- list-group-item active -->
-			  
-            </div>
-          </div>
-        </div>  
-        <div class="col-lg-8" style="padding:0px 30px;">
-          <div class="w-embed w-script kart" id="map">
-            <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
-              <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+<% if signed_in? %>
+<div class="section">
+	<a onclick="toggleNewSheepBoxVisibility('newsheep')"><button class="btn btn-default new-sheep"><span class='glyphicon glyphicon-plus'/></button></a>
+    <select id="e2" class="select-sts">
+		<option></option>
+		<% @sheep.each do |sheep| %>
+          <option value="<%= sheep.id.to_s %>"><%= sheep.id.to_s %></option>
+		<% end %>
+      </select>
+	  <div id="newsheep" class="new-sheep-box-hidden">
+	  	<a onclick="hideNewSheepBox('newsheep')"><button type='button' class='close new-sheep-close-button'>x</button></a>
+		<%= render 'new_sheep_form_integrated' %>
 
-              <%= javascript_tag "var sheeps = #{@sheep.to_json}" %>
+		<!--<form role="create_sheep">
+    		<input type="number" class="form-control new-sheep-form" placeholder="Fra">
+    		<input type="number" class="form-control new-sheep-form" placeholder="Antall">
+			<button type="submit" class="btn btn-primary new-sheep-create-button">Generer</button>
+		</form> -->
+	  </div>
+</div>
+<div class="w-embed w-script kart" id="map">
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
 
-              <script>
+	<%= javascript_tag "var sheeps = #{@sheep.to_json}" %>
 
-              //Her setter man latitude og longitude
-              var map = L.map('map').setView([63.6268, 11.5668], 13);
+	<script>
 
-              //Denne er for opencyclemap layout (Gir høydekvoter)
-              L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
-              maxZoom: 18,
-              attribution: '&copy; OpenCycleMap, ' + 'Map data '
-              }).addTo(map);
+	//Her setter man latitude og longitude
+	var map = L.map('map').setView([63.6268, 11.5668], 13);
 
-              // Lager de forskjellige markørene
-              var normalMarker = L.icon({iconUrl: 'assets/marker_normal.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
-              var alertMarker = L.icon({iconUrl: 'assets/marker_alert.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
-              var deathMarker = L.icon({iconUrl: 'assets/marker_black.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
+	//Denne er for opencyclemap layout (Gir høydekvoter)
+	L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
+		maxZoom: 18,
+		attribution: '&copy; OpenCycleMap, ' + 'Map data '
+	}).addTo(map);
 
-              // Lager dictonary med marker til hver sau, der key = 'sau id', og value = 'marker til sauen'
-              var marker = {}
-              //for (var serial in js_sheep.serial) {
+	// Lager de forskjellige markørene
+	var normalMarker = L.icon({iconUrl: 'assets/marker_normal.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
+	var alertMarker = L.icon({iconUrl: 'assets/marker_alert.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
+	var deathMarker = L.icon({iconUrl: 'assets/marker_black.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
 
-              var count = sheeps.length;
-              for (var i = 0; i < count; i++) {
-                marker[sheeps[i]['serial']] = L.marker([63.6268 - Math.random(4) / 50, 11.5668 + Math.random(4) / 50], { icon: normalMarker }).
-                //addTo(map).bindPopup("<b>Sau "+ serial +"</b><br /> er her");
-                addTo(map).bindPopup("<b>Sau "+ sheeps[i]['serial'] +"</b><br /> er her");
-              }
+	// Lager dictonary med marker til hver sau, der key = 'sau id', og value = 'marker til sauen'
+	var marker = {}
+	//for (var serial in js_sheep.serial) {
 
-              // Denne kalles på av html (koden neders), id til klikkobjektet trenger å ha samme id som 'sau id'
-              function onSauClick(id) {
-              if (id in marker)
-              	marker[id].openPopup();
-              }
+	var count = sheeps.length;
+		for (var i = 0; i < count; i++) {
+			var id = sheeps[i]['id']
+			marker[id] = L.marker([63.6268 - Math.random(4) / 50, 11.5668 + Math.random(4) / 50], { icon: normalMarker }).
+			//addTo(map).bindPopup("<b>Sau "+ serial +"</b><br /> er her");
+			addTo(map).bindPopup("<b class='marker-popup-header'>Sau "+ id +"</b> <br>" +
+			"<a onclick='showSheepBoxVisibilityElement("+"sheep, "+ id +")' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-list'></span>&nbsp;Oversikt</a><br>" +
+			"<a id='_"+id+"' onclick='togglePopover("+id+")' data-original-title='Er du sikker?' data-html='true' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-remove'></span>&nbsp;Fjern</a>");
+	}
 
-              /*
-              var popup = L.popup();
+	// Denne kalles på av html (koden neders), id til klikkobjektet trenger å ha samme id som 'sau id'
+	function onSauClick(id) {
+		if (id in marker) {
+			marker[id].openPopup();
+			map.panTo(marker[id].getLatLng());
+			map.setZoom(14);
+		}
+	}
 
-              function onMapClick(e) {
-              popup
-              .setLatLng(e.latlng)
-              .setContent("You clicked the map at " + e.latlng.toString())
-              .openOn(map);
-              }
+	function togglePopover(id) {
+		$('#_'+id+'').popover({
+			placement: 'right',
+			content: '<a href=sheep/'+id+' data-method="delete" class="btn btn-danger">Ja</a>'
+		});
+		$('#_'+id+'').popover('toggle');
+	}
+	
+	function toggleNewSheepBoxVisibility(id) {
+			document.getElementById(id).className = document.getElementById(id).className == "new-sheep-box-hidden" ? "new-sheep-box-visible thumbnail" : "new-sheep-box-hidden";
+	}
+	
+	function hideNewSheepBox(id) {
+			document.getElementById(id).className = "new-sheep-box-hidden";
+	}
 
+	
+	function toggleSheepBoxVisibility(id) {
+			document.getElementById(id).className = document.getElementById(id).className == "sheep-box-hidden" ? "sheep-box-visible thumbnail" : "sheep-box-hidden";
+	}
+	
+	function showSheepBoxVisibilityElement(id, sheep_id) {
+		console.log(sheep_id);
+		id.className = "sheep-box-visible thumbnail";
+		document.getElementById("sheep_header").innerHTML = "Sheep: " + sheep_id;
+		
+	}
+	
+	function hideSheepBox(id) {
+			document.getElementById(id).className = "sheep-box-hidden";
+	}
 
-              map.on('click', onMapClick);
-              */
+	$('html').on('mouseup', function(e) {
+		if(!$(e.target).closest('.popover').length) {
+		$('.popover').each(function(){
+		  $(this.previousSibling).popover('toggle');
+		});
+		}
+	});
 
-              </script>
+	// Denne kjører når dokumentet er ferdig lastet
+	$(document).ready(function() {
+	// Denne starter Select2 (søkerammeverket)
+		$("#e2").select2({
+			placeholder: "Filtrer sauer",
+			allowClear: true
+		});
+		$("#e2").on("change", function() { onSauClick($("#e2").select2("val")) } );
+		$("#e2").on("select2-open", function() { hideNewSheepBox("newsheep") } );
+	});
+	</script>
+</div>
 
-              <script>
-              // Denne kjører når dokumentet er ferdig lastet
-              $(document).ready(function() {
-              // Denne starter Select2 (søkerammeverket)
-              $("#e2").select2({
-                placeholder: "Select a State",
-                allowClear: true
-                })
-              });
-              </script>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<div id="sheep" class="sheep-box-hidden">
+	<a onclick="hideSheepBox('sheep')"><button type='button' class='close new-sheep-close-button'>x</button></a>
+	<h1 id="sheep_header"></h1>
+</div>
+
+<% else %>
+
+<img class="sad-face" src="assets/sad_face.png"/>
+<h1 class="sad-face-text">Du er ikke logget inn</h1>
+
+<% end %>

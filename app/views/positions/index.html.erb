@@ -3,7 +3,7 @@
 <table>
   <thead>
     <tr>
-      <th>Datetime</th>
+      <th>SheepID</th>
       <th>Latitude</th>
       <th>Longitude</th>
       <th>Attacked</th>
@@ -16,7 +16,7 @@
   <tbody>
     <% @positions.each do |position| %>
       <tr>
-        <td><%= position.datetime %></td>
+        <td><%= position.sheep_id %></td>
         <td><%= position.latitude %></td>
         <td><%= position.longitude %></td>
         <td><%= position.attacked %></td>

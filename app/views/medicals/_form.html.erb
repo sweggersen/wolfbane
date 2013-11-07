@@ -11,6 +11,8 @@
     </div>
   <% end %>
 
+  <%= f.hidden_field :sheep_id, :value => @medical.sheep_id %>
+
   <div class="field">
     <%= f.label :datetime %><br>
     <%= f.datetime_select :datetime %>
@@ -21,9 +23,9 @@
   </div>
   <div class="field">
     <%= f.label :notes %><br>
-    <%= f.text_field :notes %>
+    <%= f.text_area :notes, placeholder: "Write new medical entry ..." %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Add entry", class: "btn btn-large btn-primary" %>
   </div>
 <% end %>

@@ -1,22 +1,23 @@
 <header>
-
-<nav class="navbar navbar-primary navbar-static-top" style="border-bottom: solid 1px #ccc; margin-bottom: 5px;" role="navigation">
+<nav class="navbar navbar-primary navbar-static-top" role="navigation">
   <div class="navbar-header">
-    <p class="navbar-brand" style="margin-bottom: 0px">Sheep Tracking System</p>
+    <p class="navbar-brand">Sheep Tracking System</p>
   </div>
-
+  
 	<% if not signed_in? %>
-  <ul class="nav navbar-nav navbar-right">
-    <li>
-		<div type="button" style="margin-right:10px">
-			<%= link_to "Log in", new_session_path(), class: "btn btn-large btn-default" %>
-		</div>
-	</li>
-  </ul>
-
+  	<ul class="nav navbar-nav navbar-right">
+    	<li>
+			<div class="navbar-login-topright">
+				<%= link_to "Log in", new_session_path(), class: "btn btn-large btn-default" %>
+			</div>
+		</li>
+  	</ul>
 	<% else %>
-  <p class="navbar-text pull-right" style="margin-right:20px;">Logget inn som <a href="#" class="navbar-link">Truls Kaare Bondetrell</a></p>
+  	<p class="navbar-text pull-right">Logget inn som <a href="farmers/<%= current_user.id %>" class="navbar-link"><%= current_user.name %></a></p>
 	<% end %>
+	
 </nav>
-
 </header>
+    
+        
+        

@@ -1,21 +1,25 @@
 class SheepController < ApplicationController
+  before_action :signed_in_farmer
   before_action :set_sheep, only: [:show, :edit, :update, :destroy]
 
   # GET /sheep
   # GET /sheep.json
   def index
-    @sheep = Sheep.all
-    
+    @sheep = current_user.sheep
+    @sortedSheep = current_user.sheep.order('serial ASC').all
+    @sheepNew = current_user.sheep.new
   end
 
   # GET /sheep/1
   # GET /sheep/1.json
   def show
+    @medical = @sheep.medicals.build(sheep_id: @sheep.id)
+    @medicals = @sheep.medicals.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /sheep/new
   def new
-    @sheep = Sheep.new
+    @sheep = current_user.sheep.new
   end
 
   # GET /sheep/1/edit
@@ -25,12 +29,12 @@ class SheepController < ApplicationController
   # POST /sheep
   # POST /sheep.json
   def create
-    @sheep = Sheep.new(sheep_params)
+    @sheep = current_user.sheep.build(sheep_params)
 
     respond_to do |format|
       if @sheep.save
-        format.html { redirect_to @sheep, notice: 'Sheep was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @sheep }
+        format.html { redirect_to sheep_index_url }
+        format.json { redirect_to sheep_index_url }
       else
         format.html { render action: 'new' }
         format.json { render json: @sheep.errors, status: :unprocessable_entity }
@@ -65,7 +69,7 @@ class SheepController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sheep
-      @sheep = Sheep.find(params[:id])
+      @sheep = current_user.sheep.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
