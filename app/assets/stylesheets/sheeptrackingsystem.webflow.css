@@ -63,8 +63,9 @@ body, html { height: 100%; }
 .sheep-box-visible {
 	position: absolute;
 	width: 40%;
-	height: 80%;
-	top: 10%;
+	height: 70%;
+	top: 80px;
+	bottom: 20%;
 	left: 70px;
 	background-color: rgba(255, 255, 255, 0.80);	
 }
@@ -106,9 +107,19 @@ header {
 	margin-bottom: 0px;
 }
 
+.navbar-slogan {
+	font-family: Felt Tip Roman;
+	src: url('ftp.ttf');
+	padding-left: 8px;
+}
+
 .navbar-login-topright {
 	margin-right:10px; 
 	margin-top:8px;
+}
+
+.navbar-logout {
+	padding-left: 20px;
 }
 
 .pull-right {
@@ -126,4 +137,76 @@ header {
 	text-align: center;
 	text-size: 40px;
 	color: #555;
+}
+
+.center-aligned-text {
+	text-align: center;
+	color: #333;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-bottom: 10px;
+}
+
+.login-farmer {
+    display: block;
+	width: 30%;
+	
+    position:absolute;
+	min-top: 20%;
+    top:50%;
+    left:50%;
+    margin-top: -10%; /* this is half the height of your div*/  
+    margin-left: -15%; /*this is half of width of your div*/
+}
+
+.signup-farmer-bg {
+    background: url('/assets/sheep_picture.jpg') no-repeat center center fixed; 
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+	width: 100%;
+	height: 100%;
+}
+
+.signup-farmer {
+    display: block;
+	width: 30%;
+	
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-top: -15%; /* this is half the height of your div*/  
+    margin-left: -15%; /*this is half of width of your div*/
+}
+
+.signup-farmer-bg {
+    background: url('/assets/sheep_picture.jpg') no-repeat center center fixed; 
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+	width: 100%;
+	height: 100%;
+}
+
+.signup-farmer-create {
+    display: block;
+	width: 100%;
+}
+
+.index-container {
+	width: 100%;
+    height:100%;
+	
+	padding-top: 8%;
+	padding-left: 10%;
+	padding-right: 10%;
+
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.button_header {
+	margin-left: 30px;
 }

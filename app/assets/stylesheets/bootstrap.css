@@ -61,7 +61,6 @@ a:hover {
 
 h1 {
   margin: 0.67em 0;
-  font-size: 2em;
 }
 
 abbr[title] {
@@ -450,7 +449,7 @@ cite {
   text-align: center;
 }
 
-h1,
+,
 h2,
 h3,
 h4,

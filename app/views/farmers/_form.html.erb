@@ -12,26 +12,28 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
+		</br>
+    <%= f.text_field :email, class: "form-control", :placeholder => "Epost"%>
   </div>
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+		</br>
+    <%= f.text_field :name, class: "form-control", :placeholder => "Navn"%>
   </div>
   <div class="field">
-    <%= f.label :backup %><br>
-    <%= f.text_field :backup %>
+		</br>
+    <%= f.text_field :backup, class: "form-control", :placeholder => "Avløser"%>
   </div>
   <div class="field">
-    <%= f.label :password %><br>
-    <%= f.text_field :password %>
+		</br>
+    <%= f.password_field :password, class: "form-control", :placeholder => "Passord"%>
   </div>
   <div class="field">
-    <%= f.label :phone %><br>
-    <%= f.text_field :phone %>
+		</br>
+    <%= f.text_field :phone, class: "form-control", :placeholder => "Telefon nummer"%>
   </div>
   <div class="actions">
-    <%= f.submit %>
+		</br>
+    <%= f.submit "Oppdater", class: "btn btn-large btn-primary"%>
+<%= link_to 'Tilbake', @farmer, class: "btn btn-large btn-default"%>
   </div>
 <% end %>

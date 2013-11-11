@@ -1,6 +1,18 @@
-<h1>Editing farmer</h1>
+<div class="index-container" style="width: 44%;">
+	<h1>Rediger <% @farmer.name %></h1>
+	<% if flash[:error] -%>
+		</br>
+		<h4><%=h flash[:error] %></h4> 
+	
+	<% end -%>
+	<% if flash[:notice] -%>
+		</br>
+		<h4><%=h flash[:notice] %></h4> 
+	
+	<% end -%>
+	</br>
+	
+	<%= render 'form' %>
+	
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @farmer %> |
-<%= link_to 'Back', farmers_path %>

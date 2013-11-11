@@ -21,7 +21,7 @@ class Farmer < ActiveRecord::Base
 
   def valid_backup
     if not (self.backup.nil? || self.backup.blank? || Farmer.find_by_email(backup))
-      errors.add(:backup, 'no such email registrated')
+      errors.add(:backup, 'Ingen avløser med den eposten registrert')
     end
   end
 

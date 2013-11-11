@@ -1,10 +1,12 @@
 <% if signed_in? %>
 <div class="section">
 	<a onclick="toggleNewSheepBoxVisibility('newsheep')"><button class="btn btn-default new-sheep"><span class='glyphicon glyphicon-plus'/></button></a>
-    <select id="e2" class="select-sts">
+	<select id="e2" class="select-sts">
 		<option></option>
 		<% @sheep.each do |sheep| %>
-          <option value="<%= sheep.id.to_s %>"><%= sheep.id.to_s %></option>
+			<% if sheep.id %>
+          		<option value="<%= sheep.id.to_s %>"><%= sheep.id.to_s %></option>
+			<%end%>
 		<% end %>
       </select>
 	  <div id="newsheep" class="new-sheep-box-hidden">
@@ -45,16 +47,27 @@
 	//for (var serial in js_sheep.serial) {
 
 	var count = sheeps.length;
+	console.log(count)
 		for (var i = 0; i < count; i++) {
 			var id = sheeps[i]['id']
-			marker[id] = L.marker([63.6268 - Math.random(4) / 50, 11.5668 + Math.random(4) / 50], { icon: normalMarker }).
-			//addTo(map).bindPopup("<b>Sau "+ serial +"</b><br /> er her");
-			addTo(map).bindPopup("<b class='marker-popup-header'>Sau "+ id +"</b> <br>" +
-			"<a onclick='showSheepBoxVisibilityElement("+"sheep, "+ id +")' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-list'></span>&nbsp;Oversikt</a><br>" +
-			"<a id='_"+id+"' onclick='togglePopover("+id+")' data-original-title='Er du sikker?' data-html='true' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-remove'></span>&nbsp;Fjern</a>");
+			if (id != null) {
+				marker[id] = L.marker([63.6268 - Math.random(4) / 50, 11.5668 + Math.random(4) / 50], { icon: normalMarker }).
+				//addTo(map).bindPopup("<b>Sau "+ serial +"</b><br /> er her");
+				addTo(map).bindPopup("<b class='marker-popup-header'>Sau "+ id +"</b> <br>" +
+				"<a onclick='showSheepBoxVisibilityElement("+"sheep, "+ id +")' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-list'></span>&nbsp;Oversikt</a><br>" +
+				"<a id='_"+id+"' onclick='togglePopover("+id+")' data-original-title='Er du sikker?' data-html='true' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-remove'></span>&nbsp;Fjern</a>");
+			}
 	}
+	
+	sheep_dictonary = {}
 
-	// Denne kalles på av html (koden neders), id til klikkobjektet trenger å ha samme id som 'sau id'
+	for (var i = 0; i < count; i++) {
+		var id = sheeps[i]['id']
+		if (id != null) {
+			sheep_dictonary[id] = sheeps[i]
+		}
+	}
+	
 	function onSauClick(id) {
 		if (id in marker) {
 			marker[id].openPopup();
@@ -84,11 +97,14 @@
 			document.getElementById(id).className = document.getElementById(id).className == "sheep-box-hidden" ? "sheep-box-visible thumbnail" : "sheep-box-hidden";
 	}
 	
+	var sheep_i = 0
 	function showSheepBoxVisibilityElement(id, sheep_id) {
-		console.log(sheep_id);
+		sheep_i = sheep_id;
 		id.className = "sheep-box-visible thumbnail";
-		document.getElementById("sheep_header").innerHTML = "Sheep: " + sheep_id;
 		
+		document.getElementById("sheep_header").innerHTML = "Sheep: " + sheep_id;
+		document.getElementById("sheep_edit_link").setAttribute('href','sheep/'+ sheep_id+'')
+
 	}
 	
 	function hideSheepBox(id) {
@@ -119,6 +135,8 @@
 <div id="sheep" class="sheep-box-hidden">
 	<a onclick="hideSheepBox('sheep')"><button type='button' class='close new-sheep-close-button'>x</button></a>
 	<h1 id="sheep_header"></h1>
+	<a id="sheep_edit_link" href="sheep/1/edit">Se på helsehistorikk</a>
+	
 </div>
 
 <% else %>

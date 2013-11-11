@@ -1,19 +1,20 @@
 <header>
 <nav class="navbar navbar-primary navbar-static-top" role="navigation">
   <div class="navbar-header">
-    <p class="navbar-brand">Sheep Tracking System</p>
+	<p class="navbar-brand">Sheep Tracking System <span class="navbar-slogan">a cheap tracking system</span></p>
+	<!-- <img src="/assets/logo.svg" border="0" height="70px" style="padding: 10px;"> -->
   </div>
   
 	<% if not signed_in? %>
   	<ul class="nav navbar-nav navbar-right">
     	<li>
 			<div class="navbar-login-topright">
-				<%= link_to "Log in", new_session_path(), class: "btn btn-large btn-default" %>
+				<%= link_to "Log in", root_path(), class: "btn btn-large btn-default" %>
 			</div>
 		</li>
   	</ul>
 	<% else %>
-  	<p class="navbar-text pull-right">Logget inn som <a href="farmers/<%= current_user.id %>" class="navbar-link"><%= current_user.name %></a></p>
+  	<p class="navbar-text pull-right">Logget inn som <a href="<% root_path() %>/farmers/<%= current_user.id %>" class="navbar-link"><%= current_user.name %></a><%= link_to 'Log ut', logout_path, :method => :delete, class: "navbar-logout" %></p>
 	<% end %>
 	
 </nav>

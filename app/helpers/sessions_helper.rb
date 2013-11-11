@@ -26,8 +26,7 @@ module SessionsHelper
   # TODO: consistent method naming refactoring
   def signed_in_farmer
     unless signed_in?
-      store_location
-      redirect_to login_url, notice: "Please log in."
+      redirect_to root_path, notice: "Vennligst log inn"
     end
   end
 

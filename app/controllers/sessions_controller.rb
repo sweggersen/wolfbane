@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       sign_in user
       redirect_to sheep_index_path
     else
-      flash.now[:error] = 'Invalid email/password combination'
+      flash.now[:error] = 'Feil brukernavn eller passord'
       render 'new'
     end
   end
@@ -17,4 +17,5 @@ class SessionsController < ApplicationController
     sign_out
     redirect_to root_path
   end
+  
 end
