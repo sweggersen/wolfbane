@@ -1,4 +1,0 @@
-wolfbane
-========
-
-Informatikk prosjekt

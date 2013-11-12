@@ -1,6 +1,0 @@
-<% if @medicals.any? %>
-  <ol class="medical_history">
-    <%= render partial: 'medicals/medical', collection: @medicals %>
-  </ol>
-  <%= will_paginate @medicals %>
-<% end %>
