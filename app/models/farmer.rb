@@ -14,7 +14,7 @@ class Farmer < ActiveRecord::Base
   validates :phone, presence:true,
                     format: { with: PHONE_REGEX }
   has_secure_password
-  validates :password, length: { minimum: 8 }
+  validates :password, length: { minimum: 8 }, if: :password_changed?
   validate :valid_backup
 
   attr_accessor :current_sheep
@@ -36,5 +36,8 @@ class Farmer < ActiveRecord::Base
   private
     def create_remember_token
       self.remember_token = Farmer.encrypt(Farmer.new_remember_token)
+    end
+    def password_changed?
+      !@password.blank?# or encrypted_password.blank?
     end
 end

@@ -43,9 +43,10 @@ class FarmersController < ApplicationController
   # PATCH/PUT /farmers/1
   # PATCH/PUT /farmers/1.json
   def update
+    farmer_params.delete(:password) if farmer_params[:password].blank?
     respond_to do |format|
-      if @farmer.update(farmer_params)
-        format.html { redirect_to @farmer, notice: 'Farmer was successfully updated.' }
+      if @farmer.update_attributes(farmer_params)
+        format.html { redirect_to edit_farmer_path(@farmer), notice: 'Farmer was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

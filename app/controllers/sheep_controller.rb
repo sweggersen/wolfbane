@@ -29,16 +29,39 @@ class SheepController < ApplicationController
   def create
     @sheep = current_user.sheep.build(sheep_params)
 
-    respond_to do |format|
-      if @sheep.save
-        format.html { redirect_to @sheep, notice: 'Sheep was successfully created.' }
-        #format.html { redirect_to sheep_index_url }
-        format.json { render action: 'show', status: :created, location: @sheep }
-        #format.json { head :no_content }
-        
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @sheep.errors, status: :unprocessable_entity }
+    if @sheep.upper_serial.blank?
+      respond_to do |format|
+        if @sheep.save
+          format.html { redirect_to @sheep, notice: 'Sheep was successfully created.' }
+          #format.html { redirect_to sheep_index_url }
+          format.json { render action: 'show', status: :created, location: @sheep }
+          #format.json { head :no_content }
+          
+        else
+          format.html { render action: 'new' }
+          format.json { render json: @sheep.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      invalid = []
+      (@sheep.serial.to_i .. @sheep.upper_serial.to_i).each do |s|
+        new_sheep = Sheep.new
+        new_sheep.serial = s
+        new_sheep.farmer_id = current_user.id
+        invalid << s unless new_sheep.save
+      end
+      n = @sheep.upper_serial.to_i - @sheep.serial.to_i
+      respond_to do |format|
+        if invalid.empty?
+          format.html { redirect_to sheep_index_path, notice: "#{n} sheep was successfully created." }
+          format.json { render action: 'show', status: :created, location: @sheep }
+        else
+          n_invalid = invalid.size
+          msg = "#{(n - n_invalid)+1} sheep was successfully created."
+          msg += "\nThe following sheep could not be created: #{invalid.join(', ')}"
+          format.html { redirect_to sheep_index_path, notice: msg }
+          format.json { render action: 'show', status: :created, location: @sheep }
+        end
       end
     end
   end
@@ -75,6 +98,6 @@ class SheepController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sheep_params
-      params.require(:sheep).permit(:serial)
+      params.require(:sheep).permit(:serial, :upper_serial)
     end
 end

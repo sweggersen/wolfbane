@@ -1,0 +1,3 @@
+make user-fronted sheep ID global ID V
+fix change user info V
+add link to sheep object in attack mail
