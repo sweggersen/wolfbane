@@ -55,7 +55,8 @@
 		for (var i = 0; i < count; i++) {
 			var id = sheeps[i]['id']
 			if (id != null) {
-				marker[id] = L.marker([63.6268 - Math.random(4) / 50, 11.5668 + Math.random(4) / 50], { icon: normalMarker }).
+				//marker[id] = L.marker([63.6268 - Math.random(4) / 50, 11.5668 + Math.random(4) / 50], { icon: normalMarker }).
+				marker[id] = L.marker([sheeps[i]['latitude'], sheeps[i]['longitude']], { icon: normalMarker }).
 				//addTo(map).bindPopup("<b>Sau "+ serial +"</b><br /> er her");
 				addTo(map).bindPopup("<b class='marker-popup-header'>Sau "+ id +"</b> <br>" +
 				"<a onclick='showSheepBoxVisibilityElement("+"sheep, "+ id +")' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-list'></span>&nbsp;Oversikt</a><br>" +

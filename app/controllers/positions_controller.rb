@@ -33,7 +33,10 @@ class PositionsController < ApplicationController
 
     respond_to do |format|
       if @position.save
-        @sheep.last_position = @position.id
+        @sheep.latitude = @position.latitude
+        @sheep.longitude = @position.longitude
+        @sheep.attacked = @position.attacked
+        @sheep.save
         if @position.attacked
           @owner = Farmer.find_by_id @sheep.farmer_id
           FarmerMailer.alert_email(@owner, @sheep).deliver
