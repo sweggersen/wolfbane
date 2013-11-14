@@ -4,7 +4,6 @@ class Sheep < ActiveRecord::Base
   validates :farmer_id, presence: true
   has_many :positions
   has_many :medicals
-  attr_accessor :latitude, :longitude
   def serial_num
     sprintf "%04d", serial
   end
@@ -19,7 +18,7 @@ class Sheep < ActiveRecord::Base
   private
     def update_position
       unless positions.empty?
-        last = positions.last
+        last = Position.find_by_id last_position
         @lat = last.latitude
         @long = last.longitude
       end

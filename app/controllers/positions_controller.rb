@@ -24,7 +24,7 @@ class PositionsController < ApplicationController
   # POST /positions.json
   def create
     @position = Position.new(position_params)
-    @sheep = Sheep.find_by_id @position.sheep_id
+    @sheep = Sheep.find_by_serial @position.sheep_id
     unless @sheep
       redirect_to root_path, notice: "No sheep with id #{@position.sheep_id}"
       return
@@ -33,6 +33,7 @@ class PositionsController < ApplicationController
 
     respond_to do |format|
       if @position.save
+        @sheep.last_position = @position.id
         if @position.attacked
           @owner = Farmer.find_by_id @sheep.farmer_id
           FarmerMailer.alert_email(@owner, @sheep).deliver
