@@ -7,8 +7,12 @@
   <body>
     <h1><%= @farmer.name %>, your sheep is under attack!</h1>
     <p>
-      Your sheep # <%= @sheep.serial %> is under attack
-      at position X Y
+      Your sheep # <%= @sheep.serial %> is under attack.
+      To view the position in Sheep Tracking System, you
+      must be the owner of said sheep. If you are the backup
+      you may view it in google maps.
     </p>
+    <a href="<%= @url %>/sheep">Location in Wolfbane</a>
+    <a href="https://maps.google.com/maps?q=<%= @sheep.latitude %>,<%= @sheep.longitude %>">Location in Google Maps</a>
   </body>
 </html>
