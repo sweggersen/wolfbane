@@ -1,5 +1,5 @@
 <div class="index-container">
-	<h1>Sau # <%=@sheep.serial_num %><%= link_to 'Rediger', edit_sheep_path(@sheep), class: "btn btn-large btn-default button_header" %> <%= link_to 'Tilbake', sheep_index_path, class: "btn btn-large btn-primary" %></h1>
+	<h1>Sau #<%=@sheep.serial_num %><%= link_to 'Rediger', edit_sheep_path(@sheep), class: "btn btn-large btn-default button_header" %> <%= link_to 'Tilbake', sheep_index_path, class: "btn btn-large btn-primary" %></h1>
 	<% if flash[:error] -%>
 		</br>
 		<h4><%=h flash[:error] %></h4> 
@@ -15,7 +15,7 @@
 	  <aside class="col-md-4">
 	    <h3>Posisjoner</h3>
 	    <section>
-	      <%= render 'positions/position_history' %> 
+			<%= render 'positions/position_history' %>
 	    </section>
 	  </aside>
 	  <aside class="col-md-4">
