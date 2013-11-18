@@ -14,6 +14,7 @@ class SheepController < ApplicationController
   def show
     @medical = @sheep.medicals.build(sheep_id: @sheep.id)
     @medicals = @sheep.medicals.paginate(page: params[:page], per_page: 5)
+    @positions = @sheep.positions.paginate(page: params[:page], per_page: 10)
   end
 
   def new

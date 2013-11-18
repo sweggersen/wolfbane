@@ -15,6 +15,6 @@ class Sheep < ActiveRecord::Base
   has_many :medicals
   # Convenience method for printing sheep with leading zeros
   def serial_num
-    sprintf "%08d", serial
+    sprintf "%04d", serial
   end
 end
