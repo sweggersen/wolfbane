@@ -40,42 +40,7 @@
 
 	<script>
 
-	//Her setter man latitude og longitude
-	var map = L.map('map').setView([63.6268, 11.5668], 13);
-
-	//Denne er for opencyclemap layout (Gir høydekvoter)
-	L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
-		maxZoom: 18,
-		attribution: '&copy; OpenCycleMap, ' + 'Map data '
-	}).addTo(map);
-
-	// Lager de forskjellige markørene
-	var normalMarker = L.icon({iconUrl: 'assets/marker_normal.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
-	var alertMarker = L.icon({iconUrl: 'assets/marker_alert.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
-	var deathMarker = L.icon({iconUrl: 'assets/marker_black.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
-
-	// Lager dictonary med marker til hver sau, der key = 'sau id', og value = 'marker til sauen'
-	var marker = {}
-	//for (var serial in js_sheep.serial) {
-
-	var count = sheeps.length;
 	
-		for (var i = 0; i < count; i++) {
-			var id = sheeps[i]['id']
-			var serial = sheeps[i]['serial']
-			if (id != null) {
-				//marker[id] = L.marker([63.6268 - Math.random(4) / 50, 11.5668 + Math.random(4) / 50], { icon: normalMarker }).
-				var lat = sheeps[i]['latitude'];
-				var long = sheeps[i]['longitude'];
-				if (lat != null && long != null) {
-					marker[id] = L.marker([lat, long], { icon: normalMarker }).
-					//addTo(map).bindPopup("<b>Sau "+ serial +"</b><br /> er her");
-					addTo(map).bindPopup("<b class='marker-popup-header'>Sau "+ serial +"</b> <br>" +
-					"<a href='sheep/"+ id +"' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-list'></span>&nbsp;Oversikt</a><br>" +
-					"<a id='_"+id+"' onclick='togglePopover("+id+")' data-original-title='Er du sikker?' data-html='true' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-remove'></span>&nbsp;Fjern</a>");
-				}
-			}
-	}
 	
 	function onSauClick(id) {
 		document.location.href = "/sheep/" + id
@@ -112,6 +77,43 @@
 		});
 		$("#e2").on("change", function() { onSauClick($("#e2").select2("val")) } );
 		$("#e2").on("select2-open", function() { hideNewSheepBox("newsheep") } );
+		
+		//Her setter man latitude og longitude
+		var map = L.map('map').setView([63.6268, 11.5668], 13);
+
+		//Denne er for opencyclemap layout (Gir høydekvoter)
+		L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
+			maxZoom: 18,
+			attribution: '&copy; OpenCycleMap, ' + 'Map data '
+		}).addTo(map);
+
+		// Lager de forskjellige markørene
+		var normalMarker = L.icon({iconUrl: 'assets/marker_normal.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
+		var alertMarker = L.icon({iconUrl: 'assets/marker_alert.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
+		var deathMarker = L.icon({iconUrl: 'assets/marker_black.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
+
+		// Lager dictonary med marker til hver sau, der key = 'sau id', og value = 'marker til sauen'
+		var marker = {}
+		//for (var serial in js_sheep.serial) {
+
+		var count = sheeps.length;
+	
+			for (var i = 0; i < count; i++) {
+				var id = sheeps[i]['id']
+				var serial = sheeps[i]['serial']
+				if (id != null) {
+					//marker[id] = L.marker([63.6268 - Math.random(4) / 50, 11.5668 + Math.random(4) / 50], { icon: normalMarker }).
+					var lat = sheeps[i]['latitude'];
+					var long = sheeps[i]['longitude'];
+					if (lat != null && long != null) {
+						marker[id] = L.marker([lat, long], { icon: normalMarker }).
+						//addTo(map).bindPopup("<b>Sau "+ serial +"</b><br /> er her");
+						addTo(map).bindPopup("<b class='marker-popup-header'>Sau "+ serial +"</b> <br>" +
+						"<a href='sheep/"+ id +"' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-list'></span>&nbsp;Oversikt</a><br>" +
+						"<a id='_"+id+"' onclick='togglePopover("+id+")' data-original-title='Er du sikker?' data-html='true' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-remove'></span>&nbsp;Fjern</a>");
+					}
+				}
+		}
 	});
 	</script>
 </div>
