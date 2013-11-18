@@ -8,6 +8,7 @@ namespace :db do
       medical.datetime = date
       medical.weight = weight
       medical.notes = "A new sheep is born!"
+      sheep.birthyear = date.year
       medical.save
       number.times do
         days_since_last = now - date
@@ -21,7 +22,6 @@ namespace :db do
         when 1..4 then "Routine weighing"
         when 5..7 then "Got a vaccination shot"
         when 8..9 then "Got a tetanus shot"
-        else "Got an anal bleaching"
         end
         medical.save
       end
@@ -33,15 +33,16 @@ namespace :db do
                    password: "rootroot",
                    password_confirmation: "rootroot")
     sheep = root.sheep.new
-    sheep.serial = 0
+    sheep_serial = 0
+    sheep.serial = sheep_serial
     sheep.save
     add_medicals(sheep, 100)
     puts "Created Root Farmer"
-    99.times do |n|
+    399.times do |n|
       name = Faker::Name.name
-      email = "example-#{n+1}@wolfbane.com"
+      email = "example-#{sprintf "%04d", n+1}@wolfbane.com"
       phone = sprintf "+47%08d", rand(10**8)
-      backup = (n>0 && rand(3) == 0 ? "example-#{1+rand(n)}@wolfbane.com" : nil)
+      backup = (n>0 && rand(3) == 0 ? "example-#{sprintf "%04d", 1+rand(n)}@wolfbane.com" : nil)
       password = "password"
       farmer = Farmer.create!(name: name,
                               email: email,
@@ -50,14 +51,14 @@ namespace :db do
                               password: password,
                               password_confirmation: password)
       
-      100.times do
+      500.times do
         sheep = farmer.sheep.new
-        sheep.serial = sprintf "%04d", rand(10**4)
-        sheep.save
+        sheep.serial = sheep_serial += 1
 
         add_medicals(sheep, 2 + rand(3) )
 
         pos = [63.6268, 11.5668]
+        position = nil
         d = 0.0030
         10.times do
           pos.map! { |p| p + ((rand() * d) - d/2) }
@@ -67,6 +68,10 @@ namespace :db do
           position.attacked = false
           position.save
         end
+        sheep.latitude = position.latitude
+        sheep.longitude = position.longitude
+        sheep.attacked = position.attacked
+        sheep.save
       end
     puts "Farmer created: #{farmer.email}"
     end

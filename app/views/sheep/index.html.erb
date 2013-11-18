@@ -5,12 +5,22 @@
 		<option></option>
 		<% @sheep.each do |sheep| %>
 			<% if sheep.id %>
-          		<option value="<%= sheep.id.to_s %>"><%= sheep.id.to_s %></option>
+          		<option value="<%= sheep.id.to_s %>"><%= sheep.serial.to_s %></option>
 			<%end%>
 		<% end %>
       </select>
 	  <div id="newsheep" class="new-sheep-box-hidden">
 	  	<a onclick="hideNewSheepBox('newsheep')"><button type='button' class='close new-sheep-close-button'>x</button></a>
+		<% if flash[:error] -%>
+			</br>
+			<h4><%=h flash[:error] %></h4> 
+	
+		<% end -%>
+		<% if flash[:notice] -%>
+			</br>
+			<h4><%=h flash[:notice] %></h4> 
+	
+		<% end -%>
 		<%= render 'new_sheep_form_integrated' %>
 
 		<!--<form role="create_sheep">
@@ -21,10 +31,12 @@
 	  </div>
 </div>
 <div class="w-embed w-script kart" id="map">
-	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
-	<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
 
-	<%= javascript_tag "var sheeps = #{@sheep.to_json}" %>
+  <!--
+  <%#<%= javascript_tag "var sheeps = #{@sheep.to_json}" %>%>
+  Now lat and long is included in the json object with keys latitude, longitude
+  -->
+  <%= javascript_tag "var sheeps = #{@sheep.to_json(:methods => [:latitude, :longitude])}" %>
 
 	<script>
 
@@ -47,15 +59,19 @@
 	//for (var serial in js_sheep.serial) {
 
 	var count = sheeps.length;
-	console.log(count)
 		for (var i = 0; i < count; i++) {
 			var id = sheeps[i]['id']
 			if (id != null) {
-				marker[id] = L.marker([63.6268 - Math.random(4) / 50, 11.5668 + Math.random(4) / 50], { icon: normalMarker }).
-				//addTo(map).bindPopup("<b>Sau "+ serial +"</b><br /> er her");
-				addTo(map).bindPopup("<b class='marker-popup-header'>Sau "+ id +"</b> <br>" +
-				"<a onclick='showSheepBoxVisibilityElement("+"sheep, "+ id +")' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-list'></span>&nbsp;Oversikt</a><br>" +
-				"<a id='_"+id+"' onclick='togglePopover("+id+")' data-original-title='Er du sikker?' data-html='true' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-remove'></span>&nbsp;Fjern</a>");
+				//marker[id] = L.marker([63.6268 - Math.random(4) / 50, 11.5668 + Math.random(4) / 50], { icon: normalMarker }).
+				var lat = sheeps[i]['latitude'];
+				var long = sheeps[i]['longitude'];
+				if (lat != null && long != null) {
+					marker[id] = L.marker([lat, long], { icon: normalMarker }).
+					//addTo(map).bindPopup("<b>Sau "+ serial +"</b><br /> er her");
+					addTo(map).bindPopup("<b class='marker-popup-header'>Sau "+ id +"</b> <br>" +
+					"<a href='sheep/"+ id +"' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-list'></span>&nbsp;Oversikt</a><br>" +
+					"<a id='_"+id+"' onclick='togglePopover("+id+")' data-original-title='Er du sikker?' data-html='true' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-remove'></span>&nbsp;Fjern</a>");
+				}
 			}
 	}
 	
@@ -69,11 +85,13 @@
 	}
 	
 	function onSauClick(id) {
+		document.location.href = "/sheep/" + id
+		/*
 		if (id in marker) {
 			marker[id].openPopup();
 			map.panTo(marker[id].getLatLng());
 			map.setZoom(14);
-		}
+		}*/
 	}
 
 	function togglePopover(id) {

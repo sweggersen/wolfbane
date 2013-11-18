@@ -29,7 +29,7 @@ body, html { height: 100%; }
 .new-sheep-box-visible {
 	position: absolute;
 	width: 100%;
-	height: 110px;
+	height: 180px;
 	top: 30px;
 	background-color: rgba(255, 255, 255, 0.80);	
 }
@@ -40,7 +40,7 @@ body, html { height: 100%; }
 
 .new-sheep-form {
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     margin-left: 20px;
     margin-right: 10px;
 	width: auto;
@@ -108,8 +108,8 @@ header {
 }
 
 .navbar-slogan {
-	font-family: Felt Tip Roman;
-	src: url('ftp.ttf');
+	src: url('/fonts/ftr.ttf');
+	font-family: Felt Tip;
 	padding-left: 8px;
 }
 

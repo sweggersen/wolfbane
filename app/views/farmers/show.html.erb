@@ -26,7 +26,7 @@
 	<p>
 	  <strong>Avløser:</strong>
 	  <% if @farmer.backup %>
-	    <% link_to @farmer.backup, Farmer.find_by_email(@farmer.backup) %>
+      <%= link_to(@farmer.backup, Farmer.find_by_email(@farmer.backup)) %>
 	  <% end %>
 	</p>
 

@@ -1,4 +1,5 @@
 class PositionsController < ApplicationController
+  protect_from_forgery with: :null_session
   before_action :set_position, only: [:show, :edit, :update, :destroy]
 
   # GET /positions
@@ -24,7 +25,7 @@ class PositionsController < ApplicationController
   # POST /positions.json
   def create
     @position = Position.new(position_params)
-    @sheep = Sheep.find_by_id @position.sheep_id
+    @sheep = Sheep.find_by_serial @position.sheep_id
     unless @sheep
       redirect_to root_path, notice: "No sheep with id #{@position.sheep_id}"
       return
@@ -33,6 +34,10 @@ class PositionsController < ApplicationController
 
     respond_to do |format|
       if @position.save
+        @sheep.latitude = @position.latitude
+        @sheep.longitude = @position.longitude
+        @sheep.attacked = @position.attacked
+        @sheep.save
         if @position.attacked
           @owner = Farmer.find_by_id @sheep.farmer_id
           FarmerMailer.alert_email(@owner, @sheep).deliver

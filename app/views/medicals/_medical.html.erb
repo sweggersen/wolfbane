@@ -1,9 +1,11 @@
 <li id="<%= medical.id %>">
   <%= medical.timestamp %>
-  <span class="content"><%= medical.notes %></span>
-  <span class="timestamp">
-  </span>
-  <%= "Weight: #{medical.weight} kg     " if medical.weight %>
+  <br>
+  <i><%= "Vekt: #{medical.weight} kg" if medical.weight %></i>
+  <% if medical.notes %>
+  <br>
+  <% end %>
+  <b><span class="content"><%= medical.notes %></span></b>
   <br><%= link_to "Delete Entry", medical, method: :delete, data: { confirm: "You sure?" },
                                                   title: medical.notes %>
 </li>

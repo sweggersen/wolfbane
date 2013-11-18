@@ -1,5 +1,23 @@
-<h1>Editing sheep</h1>
+<div class="index-container">
+	<h1>Rediger sau # <%= @sheep.serial_num %></h1>
+	<% if flash[:error] -%>
+		</br>
+		<h4><%=h flash[:error] %></h4> 
+	
+	<% end -%>
+	<% if flash[:notice] -%>
+		</br>
+		<h4><%=h flash[:notice] %></h4> 
+	<% end -%>
+	</br>
+	
+	<div class="row">
+	  <div class="col-md-4">
+		<%= render 'form_edit' %>
+		
+		<%= link_to "Tilbake",  @sheep, class: "btn btn-large btn-primary" %>
+	</div>
+</div>
 
-<%= render 'form' %>
 
-<%= link_to 'Show', @sheep %> | <%= link_to 'Back', sheep_index_path %>
+

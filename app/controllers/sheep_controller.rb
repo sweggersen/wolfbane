@@ -6,6 +6,7 @@ class SheepController < ApplicationController
   # GET /sheep.json
   def index
     @sheep = current_user.sheep
+    #update_positions
     @sortedSheep = current_user.sheep.order('serial ASC').all
     @sheepNew = current_user.sheep.new
   end
@@ -30,14 +31,40 @@ class SheepController < ApplicationController
   # POST /sheep.json
   def create
     @sheep = current_user.sheep.build(sheep_params)
+    @sheep.birthyear = DateTime.now.year if @sheep.birthyear.blank?
+    if @sheep.upper_serial.blank?
+      respond_to do |format|
+        if @sheep.save
+          format.html { redirect_to sheep_index_url }
+          format.json { redirect_to sheep_index_url }
+        else
+          format.html { render action: 'new' }
+          format.json { render json: @sheep.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      invalid = []
+      (@sheep.serial.to_i .. @sheep.upper_serial.to_i).each do |s|
+        new_sheep = Sheep.new
+        new_sheep.serial = s
+        new_sheep.birthyear = @sheep.birthyear
+        new_sheep.farmer_id = current_user.id
+        invalid << s unless new_sheep.save
+      end
+      n = @sheep.upper_serial.to_i - @sheep.serial.to_i
+      respond_to do |format|
+        if invalid.empty?
+          format.html { redirect_to sheep_index_url,
+                        notice: "#{n} sheep was successfully created."}
+          format.json { redirect_to sheep_index_url }
+        else
+          n_invalid = invalid.size
+          msg = "#{(n - n_invalid)+1} sheep was successfully created."
+          msg += "\nThe following sheep ID's was taken: #{invalid.join(', ')}"
 
-    respond_to do |format|
-      if @sheep.save
-        format.html { redirect_to sheep_index_url }
-        format.json { redirect_to sheep_index_url }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @sheep.errors, status: :unprocessable_entity }
+          format.html { redirect_to sheep_index_url, notice: msg }
+          format.json { redirect_to sheep_index_url }
+        end
       end
     end
   end
@@ -70,10 +97,29 @@ class SheepController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_sheep
       @sheep = current_user.sheep.find(params[:id])
+      #update_positions
+      #@sheep.update_position
     end
+    #def update_positions
+      #@sheep.each do |s|
+        #if s.latitude.nil? || s.latitude.empty?
+          #if s.positions.empty?
+            #s.latitude = 63.6268 - ((rand * 4) / 50)
+            #s.longitude = 11.5668 + ((rand * 4) / 50)
+            #s.attacked = false
+          #else
+            #last = s.positions.last
+            #s.latitude = last.latitude
+            #s.longitude = last.longitude
+            #s.attacked = last.attacked
+          #end
+          #s.save
+        #end
+      #end
+    #end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sheep_params
-      params.require(:sheep).permit(:serial)
+      params.require(:sheep).permit(:serial, :upper_serial, :birthyear)
     end
 end

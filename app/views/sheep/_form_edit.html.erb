@@ -1,0 +1,23 @@
+<%= form_for(@sheep) do |f| %>
+  <% if @sheep.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sheep.errors.count, "error") %> prohibited this sheep from being saved:</h2>
+
+      <ul>
+      <% @sheep.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.number_field :serial, :class => 'form-control', :placeholder => "Serial" %>
+  </div>
+  <div class="field">
+    <%= f.number_field :birthyear, :class => 'form-control', :placeholder => "Fødselsår" %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Oppdater Sau', :class => 'btn btn-primary'%>
+  </div>
+<% end %>
