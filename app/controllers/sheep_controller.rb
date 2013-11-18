@@ -43,6 +43,12 @@ class SheepController < ApplicationController
           format.json { render json: @sheep.errors, status: :unprocessable_entity }
         end
       end
+    elsif (@sheep.upper_serial.to_i - @sheep_upper.serial.to_i) > 100
+      repond_to do |format|
+        format.html { redirect_to sheep_index_url,
+                      notice: "Cannot create more than 100 sheep at once" }
+        format.json { redirect_to sheep_index_url }
+      end
     else
       invalid = []
       (@sheep.serial.to_i .. @sheep.upper_serial.to_i).each do |s|
