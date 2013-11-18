@@ -1,4 +1,9 @@
-<% if signed_in? %>
+<% if flash[:error] or flash[:notice] -%>
+	<script> var notice = true;</script>
+	<% else %>
+	<script> var notice = false;</script>
+<% end -%>
+
 <div class="section">
 	<a onclick="toggleNewSheepBoxVisibility('newsheep')"><button class="btn btn-default new-sheep"><span class='glyphicon glyphicon-plus'/></button></a>
 	<select id="e2" class="select-sts">
@@ -10,26 +15,27 @@
 		<% end %>
       </select>
 	  <div id="newsheep" class="new-sheep-box-hidden">
-	  	<a onclick="hideNewSheepBox('newsheep')"><button type='button' class='close new-sheep-close-button'>x</button></a>
+	  	<a onclick="hideNewSheepBox('newsheep')"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></a>
+
+		<%= render 'new_sheep_form_integrated' %>
+		
+	  </div>
+</div>
+
+<div class="section_left">
+	<div id="notice" class="notice-box-hidden">
+		<a onclick="hideNotice()"><button type="button" class="close notice-alert" data-dismiss="alert" aria-hidden="true">&times;</button></a>
 		<% if flash[:error] -%>
 			</br>
-			<h4><%=h flash[:error] %></h4> 
-	
+			<h5 class="notice-alert"><%=h flash[:error] %></h5> 
 		<% end -%>
 		<% if flash[:notice] -%>
 			</br>
-			<h4><%=h flash[:notice] %></h4> 
-	
-		<% end -%>
-		<%= render 'new_sheep_form_integrated' %>
-
-		<!--<form role="create_sheep">
-    		<input type="number" class="form-control new-sheep-form" placeholder="Fra">
-    		<input type="number" class="form-control new-sheep-form" placeholder="Antall">
-			<button type="submit" class="btn btn-primary new-sheep-create-button">Generer</button>
-		</form> -->
-	  </div>
+			<h5 class="notice-alert"><%=h flash[:notice] %></h5>
+		<% end -%>	
+	</div>
 </div>
+
 <div class="w-embed w-script kart" id="map">
 
   <!--
@@ -40,42 +46,7 @@
 
 	<script>
 
-	//Her setter man latitude og longitude
-	var map = L.map('map').setView([63.6268, 11.5668], 13);
-
-	//Denne er for opencyclemap layout (Gir høydekvoter)
-	L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
-		maxZoom: 18,
-		attribution: '&copy; OpenCycleMap, ' + 'Map data '
-	}).addTo(map);
-
-	// Lager de forskjellige markørene
-	var normalMarker = L.icon({iconUrl: 'assets/marker_normal.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
-	var alertMarker = L.icon({iconUrl: 'assets/marker_alert.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
-	var deathMarker = L.icon({iconUrl: 'assets/marker_black.png', iconSize: [27, 44], iconAnchor: [22, 70], popupAnchor: [-8, -68]});
-
-	// Lager dictonary med marker til hver sau, der key = 'sau id', og value = 'marker til sauen'
-	var marker = {}
-	//for (var serial in js_sheep.serial) {
-
-	var count = sheeps.length;
 	
-		for (var i = 0; i < count; i++) {
-			var id = sheeps[i]['id']
-			var serial = sheeps[i]['serial']
-			if (id != null) {
-				//marker[id] = L.marker([63.6268 - Math.random(4) / 50, 11.5668 + Math.random(4) / 50], { icon: normalMarker }).
-				var lat = sheeps[i]['latitude'];
-				var long = sheeps[i]['longitude'];
-				if (lat != null && long != null) {
-					marker[id] = L.marker([lat, long], { icon: normalMarker }).
-					//addTo(map).bindPopup("<b>Sau "+ serial +"</b><br /> er her");
-					addTo(map).bindPopup("<b class='marker-popup-header'>Sau "+ serial +"</b> <br>" +
-					"<a href='sheep/"+ id +"' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-list'></span>&nbsp;Oversikt</a><br>" +
-					"<a id='_"+id+"' onclick='togglePopover("+id+")' data-original-title='Er du sikker?' data-html='true' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-remove'></span>&nbsp;Fjern</a>");
-				}
-			}
-	}
 	
 	function onSauClick(id) {
 		document.location.href = "/sheep/" + id
@@ -96,11 +67,80 @@
 	}
 	
 	function toggleNewSheepBoxVisibility(id) {
-			document.getElementById(id).className = document.getElementById(id).className == "new-sheep-box-hidden" ? "new-sheep-box-visible thumbnail" : "new-sheep-box-hidden";
+		document.getElementById(id).className = document.getElementById(id).className == "new-sheep-box-hidden" ? "new-sheep-box-visible thumbnail" : "new-sheep-box-hidden";
 	}
 	
 	function hideNewSheepBox(id) {
-			document.getElementById(id).className = "new-sheep-box-hidden";
+		document.getElementById(id).className = "new-sheep-box-hidden";
+	}
+
+	function showNotice() {
+		document.getElementById('notice').className = "alert alert-danger notice-box-visible";
+
+	}
+	
+	function hideNotice() {
+		document.getElementById('notice').className = "notice-box-hidden";
+	}
+	
+	function initializeMap() {
+
+        var map = L.map('map');
+
+		var count = sheeps.length;
+		if (count > 0) {
+			var found_position = false;
+			for (var i = 0; i < count; i++) {
+				var id = sheeps[i]['id']
+				if (id != null) {
+					var lat = sheeps[i]['latitude'];
+					var long = sheeps[i]['longitude'];
+					if (lat != null && long != null) {
+						map.setView([lat, long], 13);
+						found_position = true
+						break;
+					}
+				}
+			}
+			if (!found_position) {
+				map.setView([63.6268, 11.5668], 13);
+			}				
+		} else {
+			map.setView([63.6268, 11.5668], 13);
+		}
+		
+		//Denne er for opencyclemap layout (Gir høydekvoter)
+		L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
+			maxZoom: 18,
+			attribution: '&copy; OpenCycleMap, ' + 'Map data '
+		}).addTo(map);
+
+		// Lager de forskjellige markørene
+		var normalMarker = L.icon({iconUrl: 'assets/marker_normal2.png', iconSize: [44, 44], iconAnchor: [22, 70], popupAnchor: [0, -70]});
+		var alertMarker = L.icon({iconUrl: 'assets/marker_alert2.png', iconSize: [44, 44], iconAnchor: [22, 70], popupAnchor: [0, -70]});
+
+		// Lager dictonary med marker til hver sau, der key = 'sau id', og value = 'marker til sauen'
+		var marker = {}
+		//for (var serial in js_sheep.serial) {
+
+	
+			for (var i = 0; i < count; i++) {
+				var id = sheeps[i]['id']
+				var serial = sheeps[i]['serial']
+				var attacked = sheeps[i]['attacked']
+				if (id != null) {
+					//marker[id] = L.marker([63.6268 - Math.random(4) / 50, 11.5668 + Math.random(4) / 50], { icon: normalMarker }).
+					var lat = sheeps[i]['latitude'];
+					var long = sheeps[i]['longitude'];
+					if (lat != null && long != null) {
+						marker[id] = L.marker([lat, long], { icon: attacked ? alertMarker : normalMarker }).
+						//addTo(map).bindPopup("<b>Sau "+ serial +"</b><br /> er her");
+						addTo(map).bindPopup("<b class='marker-popup-header'>Sau "+ serial +"</b> <br>" +
+						"<a href='sheep/"+ id +"' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-list'></span>&nbsp;Oversikt</a><br>" +
+						"<a id='_"+id+"' onclick='togglePopover("+id+")' data-original-title='Er du sikker?' data-html='true' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-remove'></span>&nbsp;Fjern</a>");
+					}
+				}
+		}
 	}
 	
 	// Denne kjører når dokumentet er ferdig lastet
@@ -111,14 +151,26 @@
 			allowClear: true
 		});
 		$("#e2").on("change", function() { onSauClick($("#e2").select2("val")) } );
-		$("#e2").on("select2-open", function() { hideNewSheepBox("newsheep") } );
+		$("#e2").on("select2-open", function() { hideNewSheepBox("newsheep"), hideNotice() } );
+		
+		if (notice) {
+			showNotice()
+		}
+		
+		
+		//Her setter man latitude og longitude
+		window.setTimeout(initMap, 100); 
+
+		function initMap(){
+		         //this should check if your leaflet is available or wait if not. 
+		         if(typeof L === "undefined"){
+		                window.setTimeout(initMap, 100);
+		                return;
+		         }
+				 initializeMap();
+		};
+		
+		
 	});
 	</script>
 </div>
-
-<% else %>
-
-<img class="sad-face" src="assets/sad_face.png"/>
-<h1 class="sad-face-text">Du er ikke logget inn</h1>
-
-<% end %>

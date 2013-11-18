@@ -56,6 +56,12 @@ class FarmersController < ApplicationController
     end
   end
 
+  def set_backup
+    current_user.backup = Farmer.find_by_id(params[:id]).email
+    current_user.save
+    redirect_to current_user
+  end
+
   private
     # Set the current farmer object in the controller
     def set_farmer

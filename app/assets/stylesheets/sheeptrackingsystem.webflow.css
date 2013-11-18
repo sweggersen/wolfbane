@@ -10,6 +10,17 @@ body, html { height: 100%; }
 	padding: 0px;
 }
 
+.section_left {
+ 	position: absolute; 
+  	width: 400px; 
+  	height: 400px; 
+  	left: 20px; 
+  	top: 78px;
+  	z-index: 99;
+	margin: 0px;
+	padding: 0px;
+}
+
 .select-sts {
 	width: 90%;
 	margin-left: 40px;
@@ -56,18 +67,17 @@ body, html { height: 100%; }
 }
 
 
-.sheep-box-hidden {
+.notice-box-hidden {
 	display: none;
 }
 
-.sheep-box-visible {
+.notice-box-visible {
 	position: absolute;
-	width: 40%;
-	height: 70%;
-	top: 80px;
-	bottom: 20%;
 	left: 70px;
-	background-color: rgba(255, 255, 255, 0.80);	
+}
+
+.notice-alert {
+	color: #b94a48;
 }
 
 
@@ -105,6 +115,12 @@ header {
 
 .navbar-brand {
 	margin-bottom: 0px;
+}
+
+.navbar-map {
+	content: url('map_icon.png');
+	height: 30px;
+	margin-right: 20px;
 }
 
 @font-face {
@@ -213,4 +229,13 @@ header {
 
 .button_header {
 	margin-left: 30px;
+}
+
+.medical_delete {
+	margin-left: 10px;
+	color: #d9534f;
+}
+
+.line_break {
+	word-wrap: break-word;
 }

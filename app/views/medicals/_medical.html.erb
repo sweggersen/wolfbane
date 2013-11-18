@@ -1,11 +1,10 @@
 <li id="<%= medical.id %>">
-  <%= medical.timestamp %>
-  <br>
+  <div><%= medical.timestamp %><%= link_to '', medical, :class => "glyphicon glyphicon-trash medical_delete" ,method: :delete, data: { confirm: "Er du sikker?" }, title: medical.notes %></div>
   <i><%= "Vekt: #{medical.weight} kg" if medical.weight %></i>
   <% if medical.notes %>
   <br>
   <% end %>
-  <b><span class="content"><%= medical.notes %></span></b>
-  <br><%= link_to "Delete Entry", medical, method: :delete, data: { confirm: "You sure?" },
-                                                  title: medical.notes %>
+  <b><span class="content line_break"><%= medical.notes %></span></b>
+  <br>
+  <br>
 </li>

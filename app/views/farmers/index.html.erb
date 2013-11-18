@@ -21,7 +21,7 @@
 	      <th>Name</th>
 	      <th>Email</th>
 	      <th>Phone</th>
-	      <th>Backup</th>
+	      <th></th>
 	      <th></th>
 	      <th></th>
 	      <th></th>
@@ -34,6 +34,13 @@
 	        <td><%= link_to farmer.name, farmer %></td>
 	        <td><%= farmer.email %></td>
 	        <td><%= farmer.phone %></td>
+          <td>
+            <% if farmer.email == current_user.backup %>
+              <b>Nåværende avløser</b>
+            <% elsif farmer.email != current_user.email %>
+            <%= button_to "Sett som avløser", set_backup_farmer_path(farmer), :class => "btn btn-default", method: :put %>
+            <% end %>
+          </td>
 	      </tr>
 	    <% end %>
 	  </tbody>

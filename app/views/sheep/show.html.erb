@@ -13,20 +13,20 @@
 	
 	<div class="row">
 	  <aside class="col-md-4">
-	    <h3>Posisjoner</h3>
-	    <section>
-			<%= render 'positions/position_history' %>
-	    </section>
-	  </aside>
-	  <aside class="col-md-4">
 	    <h3>Legg til helseoppføring</h3>
 	    <section>
 	      <%= render 'medicals/form' %>
 	    </section>
 	  </aside>
-	  <div class="col-md-4">
+	  <aside class="col-md-4">
 	    <h3>Helse historikk</h3>
 	    <%= render 'medicals/medical_history' %>
+	  </aside>
+	  <div class="col-md-4">
+	    <h3>Posisjoner</h3>
+	    <section>
+			<%= render 'positions/position_history' %>
+	    </section>
 	  </div>
 	</div>
 </div>
