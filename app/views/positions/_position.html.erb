@@ -1,6 +1,8 @@
 <li id="<%= position.id %>">
-  <%= position.timestamp %>
+  <%= position.created_at %>
+  <% if position.latitude && position.longitude %>
   <br>
-  <b><span class="content">Latitude: <%= position.human_lat %>, Longitude: <%= position.human_long %></span></b>
+  <b><span class="content">Latitude: <%= position.human_lat %><br>Longitude: <%= position.human_long %></span></b>
+  <% end %>
   
 </li>
