@@ -24,14 +24,19 @@
 	</p>
 
 	<p>
+	  <strong>Antall sauer:</strong>
+	  <%= @farmer.sheep.size %>
+	</p>
+
+	<p>
 	  <strong>Avløser:</strong>
-	  <% if @farmer.backup %>
-      <%= link_to(@farmer.backup, Farmer.find_by_email(@farmer.backup)) %>
+	  <% if not @farmer.backup.blank? %>
+      <%= link_to(Farmer.find_by_email(@farmer.backup).name, Farmer.find_by_email(@farmer.backup)) %>
 	  <% end %>
 	</p>
 
 	</br>
-	<%= link_to "Se mine Sauer", sheep_index_path, class: "btn btn-large btn-primary" %>
-	<%= link_to "Se andre Bønder", farmers_path, class: "btn btn-large btn-primary" %>
+	<%= link_to "Se mine sauer", sheep_index_path, class: "btn btn-large btn-primary" %>
+	<%= link_to "Se andre bønder", farmers_path, class: "btn btn-large btn-primary" %>
 </div>
 
