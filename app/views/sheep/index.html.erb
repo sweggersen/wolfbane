@@ -59,8 +59,10 @@
 	//for (var serial in js_sheep.serial) {
 
 	var count = sheeps.length;
+	
 		for (var i = 0; i < count; i++) {
 			var id = sheeps[i]['id']
+			var serial = sheeps[i]['serial']
 			if (id != null) {
 				//marker[id] = L.marker([63.6268 - Math.random(4) / 50, 11.5668 + Math.random(4) / 50], { icon: normalMarker }).
 				var lat = sheeps[i]['latitude'];
@@ -68,20 +70,11 @@
 				if (lat != null && long != null) {
 					marker[id] = L.marker([lat, long], { icon: normalMarker }).
 					//addTo(map).bindPopup("<b>Sau "+ serial +"</b><br /> er her");
-					addTo(map).bindPopup("<b class='marker-popup-header'>Sau "+ id +"</b> <br>" +
+					addTo(map).bindPopup("<b class='marker-popup-header'>Sau "+ serial +"</b> <br>" +
 					"<a href='sheep/"+ id +"' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-list'></span>&nbsp;Oversikt</a><br>" +
 					"<a id='_"+id+"' onclick='togglePopover("+id+")' data-original-title='Er du sikker?' data-html='true' style='display:inline-block; vertical-align:top;padding-right: 10px; cursor:pointer;'><span class='glyphicon glyphicon-remove'></span>&nbsp;Fjern</a>");
 				}
 			}
-	}
-	
-	sheep_dictonary = {}
-
-	for (var i = 0; i < count; i++) {
-		var id = sheeps[i]['id']
-		if (id != null) {
-			sheep_dictonary[id] = sheeps[i]
-		}
 	}
 	
 	function onSauClick(id) {
@@ -109,34 +102,7 @@
 	function hideNewSheepBox(id) {
 			document.getElementById(id).className = "new-sheep-box-hidden";
 	}
-
 	
-	function toggleSheepBoxVisibility(id) {
-			document.getElementById(id).className = document.getElementById(id).className == "sheep-box-hidden" ? "sheep-box-visible thumbnail" : "sheep-box-hidden";
-	}
-	
-	var sheep_i = 0
-	function showSheepBoxVisibilityElement(id, sheep_id) {
-		sheep_i = sheep_id;
-		id.className = "sheep-box-visible thumbnail";
-		
-		document.getElementById("sheep_header").innerHTML = "Sheep: " + sheep_id;
-		document.getElementById("sheep_edit_link").setAttribute('href','sheep/'+ sheep_id+'')
-
-	}
-	
-	function hideSheepBox(id) {
-			document.getElementById(id).className = "sheep-box-hidden";
-	}
-
-	$('html').on('mouseup', function(e) {
-		if(!$(e.target).closest('.popover').length) {
-		$('.popover').each(function(){
-		  $(this.previousSibling).popover('toggle');
-		});
-		}
-	});
-
 	// Denne kjører når dokumentet er ferdig lastet
 	$(document).ready(function() {
 	// Denne starter Select2 (søkerammeverket)
@@ -148,13 +114,6 @@
 		$("#e2").on("select2-open", function() { hideNewSheepBox("newsheep") } );
 	});
 	</script>
-</div>
-
-<div id="sheep" class="sheep-box-hidden">
-	<a onclick="hideSheepBox('sheep')"><button type='button' class='close new-sheep-close-button'>x</button></a>
-	<h1 id="sheep_header"></h1>
-	<a id="sheep_edit_link" href="sheep/1/edit">Se på helsehistorikk</a>
-	
 </div>
 
 <% else %>
