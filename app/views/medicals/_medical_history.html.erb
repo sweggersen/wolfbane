@@ -2,5 +2,5 @@
   <ol class="medical_history">
     <%= render partial: 'medicals/medical', collection: @medicals %>
   </ol>
-  <%= will_paginate @medicals %>
+  <%= will_paginate @medicals, param_name: 'medicals' %>
 <% end %>
