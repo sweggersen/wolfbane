@@ -14,6 +14,10 @@
 	</br>
 
 	<p>
+	  <strong>Registrerte sauer:</strong>
+	  <%= @farmer.sheep.size %>
+	</p>
+	<p>
 	  <strong>Epost:</strong>
 	  <%= @farmer.email %>
 	</p>
@@ -26,7 +30,8 @@
 	<p>
 	  <strong>Avløser:</strong>
 	  <% if @farmer.backup %>
-      <%= link_to(@farmer.backup, Farmer.find_by_email(@farmer.backup)) %>
+      <% bkup = Farmer.find_by_email @farmer.backup %>
+      <%= link_to bkup.name, bkup %>
 	  <% end %>
 	</p>
 
