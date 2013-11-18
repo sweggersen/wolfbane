@@ -7,6 +7,12 @@ Wolfbane::Application.routes.draw do
 
   resources :farmers
 
+  resources :farmers do
+    member do
+      put 'set_backup'
+    end
+  end
+
   resources :sessions, only: [:new, :create, :destroy]
 
   match '/signup', to: 'farmers#new', via: 'get'
