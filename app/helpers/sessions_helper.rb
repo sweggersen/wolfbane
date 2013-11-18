@@ -34,7 +34,7 @@ module SessionsHelper
   # Redirects to login page if a user is not signed in
   def signed_in_farmer
     unless signed_in?
-      redirect_to root_path, notice: "Vennligst log inn"
+      redirect_to login_path, notice: "Vennligst log inn"
     end
   end
 

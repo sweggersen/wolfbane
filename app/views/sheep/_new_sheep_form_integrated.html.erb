@@ -11,10 +11,19 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.number_field :serial, :class => 'form-control new-sheep-form', :value => "Serial" %>
+  <div class="field input-group">
+  	<!-- <span class="input-group-addon">id</span> -->
+    <%= f.number_field :serial, :class => 'form-control new-sheep-form', :placeholder => "Serial" %>
+  </div>
+  <div class="field input-group">
+  	<!-- <span class="input-group-addon">@</span> -->
+    <%= f.number_field :upper_serial, :class => 'form-control new-sheep-form', :placeholder => "Øvre Serial" %>
+  </div>
+  <div class="field input-group">
+  	<!-- <span class="input-group-addon glyphicon glyphicon-plus"></span> -->
+    <%= f.number_field :birthyear, :class => 'form-control new-sheep-form', :placeholder => "Fødselsår" %>
   </div>
   <div class="actions">
-    <%= f.submit :class => 'btn btn-primary new-sheep-create-button'%>
+    <%= f.submit  :class => 'btn btn-primary new-sheep-create-button'%>
   </div>
 <% end %>

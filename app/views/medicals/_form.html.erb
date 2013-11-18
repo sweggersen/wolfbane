@@ -14,16 +14,14 @@
   <%= f.hidden_field :sheep_id, :value => @medical.sheep_id %>
 
   <div class="field">
-    <%= f.label :datetime %><br>
+	  <%= f.label 'Dato' %><br>
     <%= f.datetime_select :datetime %>
   </div>
   <div class="field">
-    <%= f.label :weight %><br>
-    <%= f.number_field :weight %>
+    <%= f.number_field :weight, :class=> "form-control", placeholder: "Vekt"  %>
   </div>
   <div class="field">
-    <%= f.label :notes %><br>
-    <%= f.text_area :notes, placeholder: "Write new medical entry ..." %>
+    <%= f.text_area :notes, :class=> "form-control", placeholder: "Notater" %>
   </div>
   <div class="actions">
     <%= f.submit "Add entry", class: "btn btn-large btn-primary" %>
