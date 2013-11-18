@@ -3,28 +3,22 @@ class FarmersController < ApplicationController
   before_action :correct_farmer, only: [:edit, :update]
   before_action :set_farmer, only: [:show, :edit, :update, :destroy]
 
-  # GET /farmers
-  # GET /farmers.json
+  # Listing all farmers, paginated with 30 listings per page
   def index
     @farmers = Farmer.paginate(page: params[:page])
   end
 
-  # GET /farmers/1
-  # GET /farmers/1.json
   def show
   end
 
-  # GET /farmers/new
   def new
     @farmer = Farmer.new
   end
 
-  # GET /farmers/1/edit
   def edit
   end
 
-  # POST /farmers
-  # POST /farmers.json
+  # Saving a new farmer in database, with messages and redirects
   def create
     @farmer = Farmer.new(farmer_params)
 
@@ -40,8 +34,7 @@ class FarmersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /farmers/1
-  # PATCH/PUT /farmers/1.json
+  # Updating a farmer, with messages and redirects
   def update
     respond_to do |format|
       if @farmer.update(farmer_params)
@@ -54,8 +47,7 @@ class FarmersController < ApplicationController
     end
   end
 
-  # DELETE /farmers/1
-  # DELETE /farmers/1.json
+  # Deleting a farmer, with messages and redirects
   def destroy
     @farmer.destroy
     respond_to do |format|
@@ -65,17 +57,19 @@ class FarmersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    # Set the current farmer object in the controller
     def set_farmer
       @farmer = Farmer.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Restrict legal parameters
     def farmer_params
       params.require(:farmer).permit(:email, :name, :phone, :backup, :password,
                                      :password_confirmation)
     end
 
+    # Ensure that the farmer object is the logged in user
+    # If not, redirect to main page
     def correct_farmer
       @farmer = Farmer.find(params[:id])
       redirect_to root_url unless current_user?(@farmer)

@@ -1,27 +1,21 @@
 class MedicalsController < ApplicationController
   before_action :set_medical, only: [:show, :edit, :update, :destroy]
 
-  # GET /medicals
-  # GET /medicals.json
+  # Listing is not used, since Medicals is listed on the Sheep view
   def index
   end
 
-  # GET /medicals/1
-  # GET /medicals/1.json
   def show
   end
 
-  # GET /medicals/new
+  # New medicals are created on the Sheep view
   def new
-#    @medical = Medical.new
   end
 
-  # GET /medicals/1/edit
   def edit
   end
 
-  # POST /medicals
-  # POST /medicals.json
+  # Saving a new medical in database, with messages and redirects
   def create
     @medical = Medical.new(medical_params)
     respond_to do |format|
@@ -35,8 +29,7 @@ class MedicalsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /medicals/1
-  # PATCH/PUT /medicals/1.json
+  # Updating a medical, with messages and redirects
   def update
     respond_to do |format|
       if @medical.update(medical_params)
@@ -49,8 +42,7 @@ class MedicalsController < ApplicationController
     end
   end
 
-  # DELETE /medicals/1
-  # DELETE /medicals/1.json
+  # Deleting a medical, with messages and redirects
   def destroy
     @medical.destroy
     respond_to do |format|
@@ -60,12 +52,12 @@ class MedicalsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    # Set the current medical object in the controller
     def set_medical
       @medical = Medical.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Restrict legal parameters
     def medical_params
       params.require(:medical).permit(:sheep_id, :datetime, :weight, :notes)
     end

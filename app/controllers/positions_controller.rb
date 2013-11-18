@@ -1,28 +1,26 @@
 class PositionsController < ApplicationController
+  # Built-in forgery protection is overridden to allow for the
+  # posting of positions with a script.
   protect_from_forgery with: :null_session
   before_action :set_position, only: [:show, :edit, :update, :destroy]
 
-  # GET /positions
-  # GET /positions.json
   def index
   end
 
-  # GET /positions/1
-  # GET /positions/1.json
   def show
   end
 
-  # GET /positions/new
   def new
     @position = Position.new
   end
 
-  # GET /positions/1/edit
   def edit
   end
 
-  # POST /positions
-  # POST /positions.json
+  # Saving a new position in the database.
+  # Verifies that the sheep reporting a position exists in the database.
+  # Updates the sheep object with current position and attack status.
+  # If sheep is under attack, mail farmer and backup
   def create
     @position = Position.new(position_params)
     @sheep = Sheep.find_by_serial @position.sheep_id
@@ -58,8 +56,6 @@ class PositionsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /positions/1
-  # PATCH/PUT /positions/1.json
   def update
     respond_to do |format|
       if @position.update(position_params)
@@ -72,8 +68,6 @@ class PositionsController < ApplicationController
     end
   end
 
-  # DELETE /positions/1
-  # DELETE /positions/1.json
   def destroy
     @position.destroy
     respond_to do |format|
@@ -83,12 +77,12 @@ class PositionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    # Set current position object in the controller
     def set_position
       @position = Position.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Restrict legal parameters
     def position_params
       params.require(:position).permit(:sheep_id, :latitude, :longitude, :attacked)
     end

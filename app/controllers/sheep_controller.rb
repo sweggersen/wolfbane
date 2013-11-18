@@ -2,33 +2,33 @@ class SheepController < ApplicationController
   before_action :signed_in_farmer
   before_action :set_sheep, only: [:show, :edit, :update, :destroy]
 
-  # GET /sheep
-  # GET /sheep.json
   def index
     @sheep = current_user.sheep
-    #update_positions
     @sortedSheep = current_user.sheep.order('serial ASC').all
     @sheepNew = current_user.sheep.new
   end
 
-  # GET /sheep/1
-  # GET /sheep/1.json
+  # Displays a single sheep
+  # Creates a medical object to hold the input of a new medical
+  # Find medical history of sheep, and paginates with 5 medicals per page
   def show
     @medical = @sheep.medicals.build(sheep_id: @sheep.id)
     @medicals = @sheep.medicals.paginate(page: params[:page], per_page: 5)
   end
 
-  # GET /sheep/new
   def new
     @sheep = current_user.sheep.new
   end
 
-  # GET /sheep/1/edit
   def edit
   end
 
-  # POST /sheep
-  # POST /sheep.json
+  # Creating of new Sheep
+  # If birthyear is unset, set it to the current year
+  # If an upper serial is specified, create sheep in the range
+  # [serial, upper_serial], all with the same birthyear
+  # If some of the serials in this range are occupied, they will
+  # be reported to the user, but the sheep with valid serials will be created.
   def create
     @sheep = current_user.sheep.build(sheep_params)
     @sheep.birthyear = DateTime.now.year if @sheep.birthyear.blank?
@@ -69,8 +69,7 @@ class SheepController < ApplicationController
     end
   end
 
-  # PATCH/PUT /sheep/1
-  # PATCH/PUT /sheep/1.json
+  # Updating a sheep, with messages and redirects
   def update
     respond_to do |format|
       if @sheep.update(sheep_params)
@@ -83,8 +82,7 @@ class SheepController < ApplicationController
     end
   end
 
-  # DELETE /sheep/1
-  # DELETE /sheep/1.json
+  # Deleting a sheep, with messages and redirects
   def destroy
     @sheep.destroy
     respond_to do |format|
@@ -94,31 +92,12 @@ class SheepController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    # Set the current sheep object in the controller
     def set_sheep
       @sheep = current_user.sheep.find(params[:id])
-      #update_positions
-      #@sheep.update_position
     end
-    #def update_positions
-      #@sheep.each do |s|
-        #if s.latitude.nil? || s.latitude.empty?
-          #if s.positions.empty?
-            #s.latitude = 63.6268 - ((rand * 4) / 50)
-            #s.longitude = 11.5668 + ((rand * 4) / 50)
-            #s.attacked = false
-          #else
-            #last = s.positions.last
-            #s.latitude = last.latitude
-            #s.longitude = last.longitude
-            #s.attacked = last.attacked
-          #end
-          #s.save
-        #end
-      #end
-    #end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Restrict legal parameters
     def sheep_params
       params.require(:sheep).permit(:serial, :upper_serial, :birthyear)
     end

@@ -38,7 +38,7 @@ namespace :db do
     sheep.save
     add_medicals(sheep, 100)
     puts "Created Root Farmer"
-    399.times do |n|
+    19.times do |n|
       name = Faker::Name.name
       email = "example-#{sprintf "%04d", n+1}@wolfbane.com"
       phone = sprintf "+47%08d", rand(10**8)
@@ -51,7 +51,7 @@ namespace :db do
                               password: password,
                               password_confirmation: password)
       
-      500.times do
+      200.times do
         sheep = farmer.sheep.new
         sheep.serial = sheep_serial += 1
 
