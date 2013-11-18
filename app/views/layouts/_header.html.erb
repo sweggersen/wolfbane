@@ -9,6 +9,10 @@
   	<ul class="nav navbar-nav navbar-right">
     	<li>
 			<div class="navbar-login-topright">
+        <% sheep = Sheep.all.size %>
+        <% if sheep > 0 %>
+          Currently Tracking <%= sheep %> Sheep
+        <% end %>
 				<%= link_to "Log in", root_path(), class: "btn btn-large btn-default" %>
 			</div>
 		</li>
