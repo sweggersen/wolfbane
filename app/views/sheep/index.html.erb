@@ -68,19 +68,11 @@
 			document.getElementById(id).className = "new-sheep-box-hidden";
 	}
 	
-	// Denne kjører når dokumentet er ferdig lastet
-	$(document).ready(function() {
-	// Denne starter Select2 (søkerammeverket)
-		$("#e2").select2({
-			placeholder: "Filtrer sauer",
-			allowClear: true
-		});
-		$("#e2").on("change", function() { onSauClick($("#e2").select2("val")) } );
-		$("#e2").on("select2-open", function() { hideNewSheepBox("newsheep") } );
-		
-		//Her setter man latitude og longitude
-		var map = L.map('map').setView([63.6268, 11.5668], 13);
+	function initializeMap() {
 
+        var map = L.map('map');
+		
+		map.setView([63.6268, 11.5668], 13);
 		//Denne er for opencyclemap layout (Gir høydekvoter)
 		L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
 			maxZoom: 18,
@@ -114,6 +106,31 @@
 					}
 				}
 		}
+	}
+	
+	// Denne kjører når dokumentet er ferdig lastet
+	$(document).ready(function() {
+	// Denne starter Select2 (søkerammeverket)
+		$("#e2").select2({
+			placeholder: "Filtrer sauer",
+			allowClear: true
+		});
+		$("#e2").on("change", function() { onSauClick($("#e2").select2("val")) } );
+		$("#e2").on("select2-open", function() { hideNewSheepBox("newsheep") } );
+		
+		//Her setter man latitude og longitude
+		window.setTimeout(initMap, 100); 
+
+		function initMap(){
+		         //this should check if your leaflet is available or wait if not. 
+		         if(typeof L === "undefined"){
+		                window.setTimeout(initMap, 100);
+		                return;
+		         }
+				 initializeMap();
+		};
+		
+		
 	});
 	</script>
 </div>
