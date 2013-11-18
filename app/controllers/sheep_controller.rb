@@ -39,7 +39,7 @@ class SheepController < ApplicationController
           format.html { redirect_to sheep_index_url }
           format.json { redirect_to sheep_index_url }
         else
-          format.html { render action: 'new' }
+          format.html { redirect_to sheep_index_url, notice: 'Sau med samme id finnes' }
           format.json { render json: @sheep.errors, status: :unprocessable_entity }
         end
       end
