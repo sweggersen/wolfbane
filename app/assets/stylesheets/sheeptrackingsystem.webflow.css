@@ -107,9 +107,13 @@ header {
 	margin-bottom: 0px;
 }
 
+@font-face {
+    font-family: 'ftr'; /*a name to be used later*/
+    src: url('/fonts/ftr.ttf'); /*URL to font*/
+}
+
 .navbar-slogan {
-	src: url('/fonts/ftr.ttf');
-	font-family: Felt Tip;
+	font-family: 'ftr';
 	padding-left: 8px;
 }
 

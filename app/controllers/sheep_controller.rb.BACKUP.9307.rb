@@ -13,8 +13,13 @@ class SheepController < ApplicationController
   # Find medical history of sheep, and paginates with 5 medicals per page
   def show
     @medical = @sheep.medicals.build(sheep_id: @sheep.id)
+<<<<<<< HEAD
+    @medicals = @sheep.medicals.paginate(page: params[:page], per_page: 5)
+    @positions = @sheep.positions.paginate(page: params[:page], per_page: 7)
+=======
     @medicals = @sheep.medicals.order('datetime DESC').paginate(page: params[:page], per_page: 5)
     @positions = @sheep.positions.order('created_at DESC').paginate(page: params[:page], per_page: 10)
+>>>>>>> eb371eb5f1b6cfb12cca99e8129f780e03a025f0
   end
 
   def new
