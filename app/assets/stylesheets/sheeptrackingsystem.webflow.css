@@ -118,7 +118,6 @@ header {
 }
 
 .navbar-map {
-	content: url('map_icon.png');
 	height: 30px;
 	margin-right: 20px;
 }

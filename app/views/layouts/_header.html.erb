@@ -16,7 +16,7 @@
 	<% else %>
 	<div>
 	  	<p class="pull-right" style="margin-top: 10px;">
-			<%= link_to '', sheep_index_path, class: "navbar-map btn btn-sm btn-default" %> Logget inn som <a href="<% root_path() %>/farmers/<%= current_user.id %>" class="navbar-link"><%= current_user.name %></a>
+			<%= link_to image_tag('/assets/map_icon.png'), sheep_index_path, class: "navbar-map btn btn-sm btn-default" %> Logget inn som <a href="<% root_path() %>/farmers/<%= current_user.id %>" class="navbar-link"><%= current_user.name %></a>
 			<%= link_to 'Log ut', logout_path, :method => :delete, class: "navbar-logout" %></p>
 	</div>
 	<% end %>

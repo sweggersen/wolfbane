@@ -24,7 +24,7 @@
 
 <div class="section_left">
 	<div id="notice" class="notice-box-hidden">
-		<a onclick="hideNotice()"><button type="button" class="close notice-alert" data-dismiss="alert" aria-hidden="true">&times;</button></a>
+		<a id="close_notice" onclick="hideNotice()" class="notice-box-hidden"><button type="button" class="close notice-alert" data-dismiss="alert" aria-hidden="true">&times;</button></a>
 		<% if flash[:error] -%>
 			</br>
 			<h5 class="notice-alert"><%=h flash[:error] %></h5> 
@@ -76,11 +76,13 @@
 
 	function showNotice() {
 		document.getElementById('notice').className = "alert alert-danger notice-box-visible";
+		document.getElementById('close_notice').className = "";
 
 	}
 	
 	function hideNotice() {
 		document.getElementById('notice').className = "notice-box-hidden";
+		document.getElementById('close_notice').className = "notice-box-hidden";
 	}
 	
 	function initializeMap() {

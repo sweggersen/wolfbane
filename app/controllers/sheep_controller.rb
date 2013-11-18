@@ -67,15 +67,10 @@ class SheepController < ApplicationController
       n = @sheep.upper_serial.to_i - @sheep.serial.to_i
       respond_to do |format|
         if invalid.empty?
-          format.html { redirect_to sheep_index_url,
-                        notice: "#{n} sheep was successfully created."}
+          format.html { redirect_to sheep_index_url, notice: "Sau ble laget."}
           format.json { redirect_to sheep_index_url }
         else
-          n_invalid = invalid.size
-          msg = "#{(n - n_invalid)+1} sheep was successfully created."
-          msg += "\nThe following sheep ID's was taken: #{invalid.join(', ')}"
-
-          format.html { redirect_to sheep_index_url, notice: msg }
+          format.html { redirect_to sheep_index_url, notice: "#{(n - invalid.size)+1} sauer ble laget." }
           format.json { redirect_to sheep_index_url }
         end
       end
@@ -86,7 +81,7 @@ class SheepController < ApplicationController
   def update
     respond_to do |format|
       if @sheep.update(sheep_params)
-        format.html { redirect_to @sheep, notice: 'Sheep was successfully updated.' }
+        format.html { redirect_to @sheep, notice: 'Sau ble oppdatert.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
