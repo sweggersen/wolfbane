@@ -5,4 +5,13 @@ class Position < ActiveRecord::Base
   def timestamp
     created_at.localtime.strftime "%Y %d/%m %X"
   end
+  def human_coord(float)
+    sprintf "%9.6f", float
+  end
+  def human_lat
+    human_coord(latitude)
+  end
+  def human_long
+    human_coord(longitude)
+  end
 end
