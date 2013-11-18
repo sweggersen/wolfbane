@@ -43,10 +43,16 @@ class SheepController < ApplicationController
           format.json { render json: @sheep.errors, status: :unprocessable_entity }
         end
       end
-    elsif (@sheep.upper_serial.to_i - @sheep_upper.serial.to_i) > 100
-      repond_to do |format|
+    elsif (@sheep.serial.to_i > @sheep.upper_serial.to_i)
+      respond_to do |format|
         format.html { redirect_to sheep_index_url,
-                      notice: "Cannot create more than 100 sheep at once" }
+                      notice: "Siste Serialnummer kan ikke være større enn det første." }
+        format.json { redirect_to sheep_index_url }
+      end
+    elsif (@sheep.upper_serial.to_i - @sheep.serial.to_i) > 100
+      respond_to do |format|
+        format.html { redirect_to sheep_index_url,
+                      notice: "Kan ikke lage mer enn 100 sauer om gangen." }
         format.json { redirect_to sheep_index_url }
       end
     else
