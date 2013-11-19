@@ -24,8 +24,8 @@ class PositionsController < ApplicationController
   def create
     @position = Position.new(position_params)
     @sheep = Sheep.find_by_serial @position.sheep_id
-    @position.sheep_id = @sheep.id
     unless @sheep
+      @position.sheep_id = @sheep.id
       redirect_to root_path, notice: "No sheep with id #{@position.sheep_id}"
       return
     end
