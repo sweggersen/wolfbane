@@ -1,5 +1,8 @@
 <li id="<%= position.id %>">
   <%= position.timestamp %>
+  <% if position.attacked then %>
+    <b><br>The sheep is under attack</b>
+  <% end %>
   <br>
   <b><span class="content">Latitude: <%= position.latitude%> </span><br><span> Longitude: <%=position.longitude %></span></b>
   <br>
