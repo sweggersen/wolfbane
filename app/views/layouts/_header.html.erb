@@ -11,7 +11,7 @@
 			<div class="navbar-login-topright">
         <% sheep = Sheep.all.size %>
         <% if sheep > 0 %>
-          Currently Tracking <%= sheep %> Sheep
+          <span style="padding-right: 10px;"><%= sheep %> sauer passes på</span>
         <% end %>
 				<%= link_to "Log in", root_path(), class: "btn btn-large btn-default" %>
 			</div>

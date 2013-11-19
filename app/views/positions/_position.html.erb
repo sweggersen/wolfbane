@@ -1,10 +1,10 @@
 <li id="<%= position.id %>">
   <%= position.timestamp %>
   <% if position.attacked then %>
-    <b><br>Sauen er under angrep</b>
+    <b style="color: red;"><br>Sauen er under angrep</b>
   <% end %>
   <br>
-  <b><span class="content">Latitude: <%= position.latitude%> </span><br><span> Longitude: <%=position.longitude %></span></b>
+  <b><span class="content">Latitude: <%= position.human_lat %> </span><br><span> Longitude: <%=position.human_long %></span></b>
   <br>
   
 </li>
