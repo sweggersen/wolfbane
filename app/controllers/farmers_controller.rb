@@ -5,7 +5,7 @@ class FarmersController < ApplicationController
 
   # Listing all farmers, paginated with 30 listings per page
   def index
-    @farmers = Farmer.paginate(page: params[:page])
+    @farmers = Farmer.order('email DESC').paginate(page: params[:page], per_page: 10)
   end
 
   def show
