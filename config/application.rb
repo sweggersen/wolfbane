@@ -21,7 +21,7 @@ module Wolfbane
     # config.i18n.default_locale = :de
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     config.assets.paths << "#{Rails}/vendor/assets/fonts"
-    config.action_mailer.delivery_method = :smtp
+    #config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
       address: 'smtp.gmail.com',
       port: 587,
