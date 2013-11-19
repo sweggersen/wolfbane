@@ -1,8 +1,7 @@
 class PositionsController < ApplicationController
   # Built-in forgery protection is overridden to allow for the
   # posting of positions with a script.
-  skip_before_filter :verify_authenticity_token
-  protect_from_forgery with: :null_session
+  protect_from_forgery except: :create
   before_action :set_position, only: [:show, :edit, :update, :destroy]
 
   def index
