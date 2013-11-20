@@ -4,3 +4,4 @@
 require File.expand_path('../config/application', __FILE__)
 
 Wolfbane::Application.load_tasks
+

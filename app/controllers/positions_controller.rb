@@ -4,9 +4,11 @@ class PositionsController < ApplicationController
   protect_from_forgery except: :create
   before_action :set_position, only: [:show, :edit, :update, :destroy]
 
+  # Unused hook, positions are listed in the sheep view
   def index
   end
 
+  # Unused hook
   def show
   end
 
@@ -14,6 +16,7 @@ class PositionsController < ApplicationController
     @position = Position.new
   end
 
+  # Unused hook
   def edit
   end
 
@@ -28,22 +31,29 @@ class PositionsController < ApplicationController
       redirect_to root_path, notice: "No sheep with id #{@position.sheep_id}"
       return
     end
-    @position.sheep_id = @sheep.id
+    if @position.latitude.nil? || @position.longitude.nil? || @position.attacked.nil?
+      redirect_to root_path, notice: "Invalid protocol format"
+      return
+    end
 
+    # Conert from the user designated serial to the internally used id (row_id in database)
+    @position.sheep_id = @sheep.id
 
     respond_to do |format|
       if @position.save
+        # Update last position on sheep object
         @sheep.latitude = @position.latitude
         @sheep.longitude = @position.longitude
         @sheep.attacked = @position.attacked
+        # Save in database (update)
         @sheep.save
         if @position.attacked
           @owner = Farmer.find_by_id @sheep.farmer_id
           FarmerMailer.alert_email(@owner, @sheep).deliver
+          # Also mail the backup if the user has one
           unless @owner.backup.blank?
             FarmerMailer.alert_email(Farmer.find_by_email(@owner.backup), @sheep).deliver
           end
-          # hook into mail sender here
           format.html { redirect_to root_path, notice: 'Attack registered' }
           format.json { render action: 'show', status: :created, location: @position }
         else

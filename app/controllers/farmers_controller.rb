@@ -1,13 +1,15 @@
 class FarmersController < ApplicationController
+  # before_action calls
   before_action :signed_in_farmer, only: [:index, :show, :edit, :update]
   before_action :correct_farmer, only: [:edit, :update]
   before_action :set_farmer, only: [:show, :edit, :update, :destroy]
 
-  # Listing all farmers, paginated with 30 listings per page
+  # Listing all farmers, paginated with 10 listings per page
   def index
     @farmers = Farmer.order('email ASC').paginate(page: params[:page], per_page: 10)
   end
 
+  # Unused hook
   def show
   end
 
@@ -15,6 +17,7 @@ class FarmersController < ApplicationController
     @farmer = Farmer.new
   end
 
+  # Unused hook
   def edit
   end
 
@@ -56,6 +59,7 @@ class FarmersController < ApplicationController
     end
   end
 
+  # Sets this farmer as the backup to the current logged in user
   def set_backup
     current_user.backup = Farmer.find_by_id(params[:id]).email
     current_user.save

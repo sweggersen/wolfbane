@@ -3,17 +3,24 @@ class SheepController < ApplicationController
   before_action :set_sheep, only: [:show, :edit, :update, :destroy]
 
   def index
+    # the collection of sheep belonging to the signed in user
     @sheep = current_user.sheep
     @sortedSheep = current_user.sheep.order('serial ASC').all
+    # sheep object for holding form information upon creating a new sheep
     @sheepNew = current_user.sheep.new
   end
 
   # Displays a single sheep
   # Creates a medical object to hold the input of a new medical
   # Find medical history of sheep, and paginates with 5 medicals per page
+  # The paginate method fetches only a range of object from the database, depending
+  # on the range viewed
   def show
+    # medical object for holding form information upon creating a new medical entry
     @medical = @sheep.medicals.build(sheep_id: @sheep.id)
+    # the collection of medicals belonging to the current sheep
     @medicals = @sheep.medicals.order('datetime DESC').paginate(page: params[:medicals], per_page: 5)
+    # the collection of positions belonging to the current sheep
     @positions = @sheep.positions.order('created_at DESC').paginate(page: params[:positions], per_page: 7)
   end
 

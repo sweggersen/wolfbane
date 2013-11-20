@@ -8,10 +8,11 @@
 	<a onclick="toggleNewSheepBoxVisibility('newsheep')"><button class="btn btn-default new-sheep"><span class='glyphicon glyphicon-plus'/></button></a>
 	<select id="e2" class="select-sts">
 		<option></option>
+    <!-- Genererer optionsboksen som holder alle sauer tilhørende innlogget bonde -->
 		<% @sheep.each do |sheep| %>
 			<% if sheep.id %>
           		<option value="<%= sheep.id.to_s %>"><%= sheep.serial.to_s %></option>
-			<%end%>
+			<% end %>
 		<% end %>
       </select>
 	  <div id="newsheep" class="new-sheep-box-hidden">
@@ -38,10 +39,6 @@
 
 <div class="w-embed w-script kart" id="map">
 
-  <!--
-  <%#<%= javascript_tag "var sheeps = #{@sheep.to_json}" %>%>
-  Now lat and long is included in the json object with keys latitude, longitude
-  -->
   <%= javascript_tag "var sheeps = #{@sheep.to_json(:methods => [:latitude, :longitude])}" %>
 
 	<script>

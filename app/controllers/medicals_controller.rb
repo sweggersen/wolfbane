@@ -5,6 +5,7 @@ class MedicalsController < ApplicationController
   def index
   end
 
+  # Unused hook
   def show
   end
 
@@ -12,6 +13,7 @@ class MedicalsController < ApplicationController
   def new
   end
 
+  # Unused hook
   def edit
   end
 
